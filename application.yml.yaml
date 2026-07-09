@@ -1,0 +1,65 @@
+micronaut:
+  server:
+    port: 8080
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowed-origins: "*"
+          allowed-methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+          allowed-headers: ["Content-Type", "Authorization"]
+          exposed-headers: ["Authorization"]
+          allow-credentials: true
+  security:
+    enabled: true
+    authentication: bearer
+    token:
+      jwt:
+        signatures:
+          secret:
+            generator:
+              secret: ${JWT_SECRET:supersecretjwtkey1234567890}
+        generator:
+          expiration: ${JWT_EXPIRATION:86400000}
+    endpoints:
+      login:
+        path: /auth/login
+        allowed-methods: ["POST"]
+      logout:
+        path: /auth/logout
+        allowed-methods: ["POST"]
+        
+datasources:
+  default:
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/kkkarwash}
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${DATABASE_USER:kkkuser}
+    password: ${DATABASE_PASSWORD:kkkpass123}
+    maximumPoolSize: 10
+    minimumIdle: 2
+    connectionTimeout: 30000
+    idleTimeout: 600000
+    maxLifetime: 1800000
+
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: validate
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: false
+        format_sql: false
+        jdbc:
+          batch_size: 20
+        connection:
+          release_mode: after_transaction
+
+jackson:
+  serialization:
+    write-dates-as-timestamps: false
+
+logger:
+  levels:
+    com.kkkarwash: DEBUG
+    io.micronaut.data: DEBUG
