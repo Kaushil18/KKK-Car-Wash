@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Reports · KKK Kar Wash</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    
+    <!-- ====== CUSTOM CSS ====== -->
+    <link rel="stylesheet" href="../css/custom.css"/>
+
+    <style>
+        /* Reports page specific styles */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        .page-header h1 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        .page-header p {
+            color: rgba(255, 255, 255, 0.3);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Report Cards */
+        .report-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.5rem;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            height: 100%;
+        }
+        .report-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(56, 189, 248, 0.12);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        .report-card .report-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(6, 182, 212, 0.04));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.06);
+            margin-bottom: 0.8rem;
+        }
+        .report-card h5 {
+            color: #fff;
+            font-weight: 600;
+            margin: 0;
+        }
+        .report-card p {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+            margin: 0.3rem 0 0;
+        }
+        .report-card .report-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 0.5rem 0 0;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .filter-section .form-control,
+        .filter-section .form-select {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        .filter-section .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .filter-section .form-control:focus,
+        .filter-section .form-select:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.05);
+            color: #fff;
+        }
+        .filter-section .form-select option {
+            background: #0a0f1a;
+            color: #fff;
+        }
+        .filter-section label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Chart Cards */
+        .chart-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.5rem;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            height: 100%;
+        }
+        .chart-card:hover {
+            border-color: rgba(56, 189, 248, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .chart-card .chart-title {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Bar Chart */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            height: 150px;
+            padding-top: 10px;
+        }
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .bar-item .bar {
+            width: 100%;
+            max-width: 40px;
+            border-radius: 6px 6px 0 0;
+            background: linear-gradient(180deg, #38bdf8, #1a5f7a);
+            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            min-height: 8px;
+        }
+        .bar-item .bar:hover {
+            opacity: 0.8;
+            transform: scaleY(1.02);
+            transform-origin: bottom;
+        }
+        .bar-item .bar-label {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.65rem;
+            font-weight: 500;
+        }
+        .bar-item .bar-value {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Donut Chart (CSS) */
+        .donut-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .donut {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .donut .segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            clip: rect(0, 120px, 120px, 60px);
+        }
+        .donut .segment .slice {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            clip: rect(0, 60px, 120px, 0);
+        }
+        .donut-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(10, 15, 26, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+        .donut-center .number {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .donut-center .label {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.6rem;
+        }
+
+        /* Table */
+        .table-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+        }
+        .table-glass thead th {
+            background: rgba(56, 189, 248, 0.04);
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 0.8rem 1rem;
+        }
+        .table-glass tbody td {
+            color: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 0.8rem 1rem;
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+        .table-glass tbody tr:hover {
+            background: rgba(56, 189, 248, 0.03);
+        }
+
+        /* Export Buttons */
+        .export-btn {
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            transition: 0.3s;
+        }
+        .export-btn.csv {
+            background: rgba(52, 211, 153, 0.12);
+            color: #34d399;
+        }
+        .export-btn.csv:hover {
+            background: rgba(52, 211, 153, 0.2);
+            transform: translateY(-2px);
+        }
+        .export-btn.pdf {
+            background: rgba(248, 113, 113, 0.12);
+            color: #f87171;
+        }
+        .export-btn.pdf:hover {
+            background: rgba(248, 113, 113, 0.2);
+            transform: translateY(-2px);
+        }
+        .export-btn.excel {
+            background: rgba(52, 211, 153, 0.12);
+            color: #34d399;
+        }
+        .export-btn.excel:hover {
+            background: rgba(52, 211, 153, 0.2);
+            transform: translateY(-2px);
+        }
+        .export-btn.print {
+            background: rgba(56, 189, 248, 0.12);
+            color: #38bdf8;
+        }
+        .export-btn.print:hover {
+            background: rgba(56, 189, 248, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Toast override */
+        .toast-glass {
+            background: rgba(10, 15, 26, 0.92) !important;
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.06) !important;
+            border-radius: 20px !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+            color: #fff !important;
+        }
+
+        @media (max-width: 768px) {
+            .filter-section {
+                padding: 1rem;
+            }
+            .report-card .report-number {
+                font-size: 1.5rem;
+            }
+            .bar-chart {
+                height: 100px;
+            }
+            .donut {
+                width: 100px;
+                height: 100px;
+            }
+            .donut-center {
+                width: 60px;
+                height: 60px;
+            }
+            .donut-center .number {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== PARTICLES BACKGROUND ====== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ====== GLOW ORBS ====== -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div class="main-content">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar navbar-expand-lg navbar-glass py-2 sticky-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="../index.html">
+                    <i class="bi bi-droplet me-2"></i>KKK<span style="font-weight:300;">Kar</span> Wash
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="../index.html"><i class="bi bi-house-door"></i>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../services.html"><i class="bi bi-grid"></i>Services</a></li>
+                        <li class="nav-item" id="navLogin"><a class="nav-link" href="../login.html"><i class="bi bi-box-arrow-in-right"></i>Login</a></li>
+                        <li class="nav-item" id="navRegister"><a class="nav-link" href="../register.html"><i class="bi bi-person-plus"></i>Register</a></li>
+                        <li class="nav-item d-none" id="navBookings"><a class="nav-link" href="../bookings.html"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
+                        <li class="nav-item d-none" id="navProfile"><a class="nav-link" href="../profile.html"><i class="bi bi-person"></i>Profile</a></li>
+                        <li class="nav-item d-none" id="navAdmin"><a class="nav-link active" href="dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                        <li class="nav-item d-none" id="navLogout"><a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                        <li class="nav-item ms-2" id="userBadge"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ====== REPORTS CONTENT ====== -->
+        <div class="container py-4">
+
+            <!-- Header -->
+            <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h1><i class="bi bi-file-earmark-text me-2" style="color:#38bdf8;"></i>Reports & Analytics</h1>
+                    <p>View business insights, generate reports, and export data</p>
+                </div>
+                <button class="btn btn-primary-glow btn-sm" onclick="refreshReports()" style="padding:0.4rem 1.2rem;font-size:0.85rem;">
+                    <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+                </button>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label><i class="bi bi-calendar3 me-1"></i>Date From</label>
+                        <input type="date" class="form-control" id="dateFrom" value="" onchange="applyFilters()">
+                    </div>
+                    <div class="col-md-3">
+                        <label><i class="bi bi-calendar3 me-1"></i>Date To</label>
+                        <input type="date" class="form-control" id="dateTo" value="" onchange="applyFilters()">
+                    </div>
+                    <div class="col-md-3">
+                        <label><i class="bi bi-funnel me-1"></i>Report Type</label>
+                        <select class="form-select" id="reportType" onchange="applyFilters()">
+                            <option value="daily">Daily</option>
+                            <option value="weekly" selected>Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>&nbsp;</label>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-glow btn-sm w-100" onclick="clearFilters()" style="padding:0.4rem;font-size:0.85rem;">
+                                <i class="bi bi-x-circle me-1"></i>Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="row g-4 mb-4" id="summaryCards">
+                <!-- Cards generated by JavaScript -->
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row g-4 mb-4">
+                <div class="col-lg-8">
+                    <div class="chart-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="chart-title"><i class="bi bi-graph-up me-2"></i>Revenue Trend</div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary-glow btn-sm" onclick="exportChart('revenue')" style="padding:0.2rem 0.8rem;font-size:0.7rem;">
+                                    <i class="bi bi-download me-1"></i>Export
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bar-chart" id="revenueChart">
+                            <!-- Bars generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="chart-card">
+                        <div class="chart-title"><i class="bi bi-pie-chart me-2"></i>Booking Distribution</div>
+                        <div class="donut-container" id="donutChart">
+                            <!-- Donut chart generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Performers & Recent Activity -->
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="chart-card">
+                        <div class="chart-title"><i class="bi bi-trophy me-2"></i>Top Performing Services</div>
+                        <div id="topServices">
+                            <!-- Services loaded by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="chart-card">
+                        <div class="chart-title"><i class="bi bi-clock-history me-2"></i>Recent Activity</div>
+                        <div id="recentActivity">
+                            <!-- Activity loaded by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Report Table -->
+            <div class="mt-4">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <h5 style="color:#fff;font-weight:600;margin:0;">
+                        <i class="bi bi-table me-2" style="color:#38bdf8;"></i>Detailed Report
+                    </h5>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="export-btn csv" onclick="exportReport('csv')">
+                            <i class="bi bi-file-earmark-text me-1"></i>CSV
+                        </button>
+                        <button class="export-btn excel" onclick="exportReport('excel')">
+                            <i class="bi bi-file-earmark-excel me-1"></i>Excel
+                        </button>
+                        <button class="export-btn pdf" onclick="exportReport('pdf')">
+                            <i class="bi bi-file-earmark-pdf me-1"></i>PDF
+                        </button>
+                        <button class="export-btn print" onclick="window.print()">
+                            <i class="bi bi-printer me-1"></i>Print
+                        </button>
+                    </div>
+                </div>
+                <div class="table-glass">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Bookings</th>
+                                    <th>Revenue</th>
+                                    <th>Avg. Order</th>
+                                    <th>Top Service</th>
+                                    <th>Customers</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportTableBody">
+                                <!-- Rows generated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-light py-4 mt-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:700;font-size:1.1rem;">
+                            <i class="bi bi-droplet me-2" style="color:#38bdf8;"></i>KKK Kar Wash
+                        </h5>
+                        <p style="max-width:350px;">Premium car care, reimagined for the digital age.</p>
+                        <div class="social-icons mt-2">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="footer-heading">Information</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="../about.html"><i class="bi bi-info-circle me-2"></i>About Us</a>
+                                    <a href="../contact.html"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+                                    <a href="#"><i class="bi bi-shield me-2"></i>Privacy Policy</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="#"><i class="bi bi-file-text me-2"></i>Terms of Service</a>
+                                    <a href="#"><i class="bi bi-question-circle me-2"></i>FAQ</a>
+                                    <a href="#"><i class="bi bi-bug me-2"></i>Report Issue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.04);">
+                    <p class="mb-0" style="color:rgba(255,255,255,0.2);font-size:0.85rem;">
+                        <i class="bi bi-droplet-half me-2" style="color:rgba(56,189,248,0.3);"></i>
+                        &copy; 2026 KKK Kar Wash. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ====== PARTICLES ANIMATION ====== -->
+    <script src="../js/particles.js"></script>
+    
+    <!-- ====== COMMON JAVASCRIPT ====== -->
+    <script src="../js/common.js"></script>
+
+    <!-- ====== REPORTS API INTEGRATION ====== -->
+    <script>
+        /**
+         * ============================================================
+         * REPORTS API INTEGRATION
+         * 
+         * YOUR FRIEND CAN REPLACE THE MOCK FUNCTIONS BELOW WITH
+         * ACTUAL API CALLS TO THE BACKEND DATABASE
+         * ============================================================
+         */
+
+        // ============================================================
+        // 🔌 API CONFIGURATION
+        // ============================================================
+        const API_CONFIG = {
+            baseURL: 'http://localhost:8080/api/admin',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        };
+
+        // ============================================================
+        // 📊 API ENDPOINTS - REPLACE WITH REAL ENDPOINTS
+        // ============================================================
+        const API = {
+            /**
+             * GET /reports/summary
+             * Returns: { totalRevenue, totalBookings, averageOrder, customerCount }
+             */
+            getSummary: async function(filters) {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve({
+                            totalRevenue: Math.floor(Math.random() * 8000) + 2000,
+                            totalBookings: Math.floor(Math.random() * 300) + 50,
+                            averageOrder: Math.floor(Math.random() * 40) + 25,
+                            customerCount: Math.floor(Math.random() * 200) + 50
+                        });
+                    }, 300);
+                });
+            },
+
+            /**
+             * GET /reports/revenue-trend
+             * Returns: [{ label, value }, ...]
+             */
+            getRevenueTrend: async function(filters) {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                        resolve(days.map(day => ({
+                            label: day,
+                            value: Math.floor(Math.random() * 800) + 200
+                        })));
+                    }, 300);
+                });
+            },
+
+            /**
+             * GET /reports/booking-distribution
+             * Returns: [{ service: string, count: number, color: string }]
+             */
+            getBookingDistribution: async function(filters) {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        const colors = ['#38bdf8', '#34d399', '#fbbf24', '#f87171', '#a78bfa'];
+                        resolve([
+                            { service: 'Basic Wash', count: Math.floor(Math.random() * 80) + 20, color: colors[0] },
+                            { service: 'Premium Wash', count: Math.floor(Math.random() * 60) + 15, color: colors[1] },
+                            { service: 'Deluxe Wash', count: Math.floor(Math.random() * 40) + 10, color: colors[2] }
+                        ]);
+                    }, 300);
+                });
+            },
+
+            /**
+             * GET /reports/top-services
+             * Returns: [{ service: string, bookings: number, revenue: number }]
+             */
+            getTopServices: async function(filters) {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve([
+                            { service: 'Basic Wash', bookings: Math.floor(Math.random() * 80) + 20, revenue: Math.floor(Math.random() * 2000) + 500 },
+                            { service: 'Premium Wash', bookings: Math.floor(Math.random() * 60) + 15, revenue: Math.floor(Math.random() * 2500) + 600 },
+                            { service: 'Deluxe Wash', bookings: Math.floor(Math.random() * 40) + 10, revenue: Math.floor(Math.random() * 3000) + 800 }
+                        ]);
+                    }, 300);
+                });
+            },
+
+            /**
+             * GET /reports/recent-activity
+             * Returns: [{ action: string, customer: string, timestamp: string }]
+             */
+            getRecentActivity: async function(filters) {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        const actions = ['Booked', 'Cancelled', 'Completed', 'Confirmed'];
+                        const customers = ['John Doe', 'Sarah Williams', 'Michael Chen', 'Emma Thompson', 'David Lee'];
+                        const activities = [];
+                        for (let i = 0; i < 8; i++) {
+                            const minutes = Math.floor(Math.random() * 60);
+                            const hours = Math.floor(Math.random() * 12) + 1;
+                            activities.push({
+                                action: actions[Math.floor(Math.random() * actions.length)],
+                                customer: customers[Math.floor(Math.random() * customers.length)],
+                                timestamp: `${hours}:${minutes.toString().padStart(2, '0')} ${Math.random() > 0.5 ? 'AM' : 'PM'}`
+                            });
+                        }
+                        resolve(activities);
+                    }, 300);
+                });
+            },
+
+            /**
+             * GET /reports/detailed
+             * Returns: [{ date, bookings, revenue, avgOrder, topService, customers }]
+             */
+            getDetailedReport: async function(filters) {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        const services = ['Basic Wash', 'Premium Wash', 'Deluxe Wash'];
+                        const report = [];
+                        const days = filters.type === 'daily' ? 7 : filters.type === 'weekly' ? 4 : filters.type === 'monthly' ? 12 : 6;
+                        for (let i = 0; i < days; i++) {
+                            const date = new Date();
+                            date.setDate(date.getDate() - i);
+                            report.push({
+                                date: date.toISOString().split('T')[0],
+                                bookings: Math.floor(Math.random() * 20) + 5,
+                                revenue: Math.floor(Math.random() * 600) + 100,
+                                avgOrder: Math.floor(Math.random() * 35) + 20,
+                                topService: services[Math.floor(Math.random() * services.length)],
+                                customers: Math.floor(Math.random() * 15) + 3
+                            });
+                        }
+                        resolve(report);
+                    }, 300);
+                });
+            },
+
+            /**
+             * GET /reports/export
+             * Exports report data
+             */
+            exportReport: async function(format, filters) {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        // Generate mock CSV
+                        let csv = 'Date,Bookings,Revenue,Avg Order,Top Service,Customers\n';
+                        for (let i = 0; i < 10; i++) {
+                            const date = new Date();
+                            date.setDate(date.getDate() - i);
+                            csv += `${date.toISOString().split('T')[0]},${Math.floor(Math.random() * 20) + 5},${Math.floor(Math.random() * 600) + 100},${Math.floor(Math.random() * 35) + 20},${['Basic Wash','Premium Wash','Deluxe Wash'][Math.floor(Math.random() * 3)]},${Math.floor(Math.random() * 15) + 3}\n`;
+                        }
+                        resolve(csv);
+                    }, 300);
+                });
+            }
+        };
+
+        // ============================================================
+        // 📦 STATE MANAGEMENT
+        // ============================================================
+        let reportData = [];
+        let currentFilters = {
+            dateFrom: '',
+            dateTo: '',
+            type: 'weekly'
+        };
+
+        // ============================================================
+        // 🎨 RENDER FUNCTIONS
+        // ============================================================
+
+        function renderSummary(summary) {
+            const container = document.getElementById('summaryCards');
+            container.innerHTML = `
+                <div class="col-md-3 col-6">
+                    <div class="report-card text-center">
+                        <div class="report-icon" style="margin:0 auto 0.5rem;"><i class="bi bi-currency-dollar"></i></div>
+                        <p style="color:rgba(255,255,255,0.3);font-size:0.75rem;margin:0;">Total Revenue</p>
+                        <div class="report-number">$${summary.totalRevenue.toLocaleString()}</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="report-card text-center">
+                        <div class="report-icon" style="margin:0 auto 0.5rem;"><i class="bi bi-calendar-check"></i></div>
+                        <p style="color:rgba(255,255,255,0.3);font-size:0.75rem;margin:0;">Total Bookings</p>
+                        <div class="report-number">${summary.totalBookings.toLocaleString()}</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="report-card text-center">
+                        <div class="report-icon" style="margin:0 auto 0.5rem;"><i class="bi bi-receipt"></i></div>
+                        <p style="color:rgba(255,255,255,0.3);font-size:0.75rem;margin:0;">Avg. Order</p>
+                        <div class="report-number">$${summary.averageOrder}</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="report-card text-center">
+                        <div class="report-icon" style="margin:0 auto 0.5rem;"><i class="bi bi-people"></i></div>
+                        <p style="color:rgba(255,255,255,0.3);font-size:0.75rem;margin:0;">Customers</p>
+                        <div class="report-number">${summary.customerCount.toLocaleString()}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderRevenueTrend(data) {
+            const max = Math.max(...data.map(d => d.value), 1);
+            const container = document.getElementById('revenueChart');
+            
+            container.innerHTML = data.map(item => {
+                const height = (item.value / max) * 120 + 10;
+                return `
+                    <div class="bar-item">
+                        <span class="bar-value">$${item.value}</span>
+                        <div class="bar" style="height: ${height}px;"></div>
+                        <span class="bar-label">${item.label}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderDonutChart(data) {
+            const container = document.getElementById('donutChart');
+            const total = data.reduce((sum, item) => sum + item.count, 0);
+            let cumulative = 0;
+
+            // Calculate percentages
+            const segments = data.map(item => {
+                const percentage = (item.count / total) * 100;
+                return { ...item, percentage };
+            });
+
+            // Build donut segments using conic gradient
+            let gradient = 'conic-gradient(';
+            segments.forEach((item, index) => {
+                const start = cumulative;
+                const end = cumulative + item.percentage;
+                gradient += `${item.color} ${start}% ${end}%`;
+                if (index < segments.length - 1) gradient += ', ';
+                cumulative = end;
+            });
+            gradient += ')';
+
+            // Build legend
+            const legendHtml = segments.map(item => `
+                <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.3rem;">
+                    <span style="width:12px;height:12px;border-radius:50%;background:${item.color};"></span>
+                    <span style="color:rgba(255,255,255,0.6);font-size:0.8rem;">${item.service}</span>
+                    <span style="color:rgba(255,255,255,0.3);font-size:0.8rem;margin-left:auto;">${item.count}</span>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div style="display:flex;flex-direction:column;align-items:center;width:100%;">
+                    <div style="position:relative;width:140px;height:140px;border-radius:50%;background:${gradient};margin-bottom:1rem;">
+                        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;background:rgba(10,15,26,0.9);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+                            <span style="color:#fff;font-weight:700;font-size:1.4rem;line-height:1;">${total}</span>
+                            <span style="color:rgba(255,255,255,0.3);font-size:0.65rem;">Total</span>
+                        </div>
+                    </div>
+                    <div style="width:100%;">${legendHtml}</div>
+                </div>
+            `;
+        }
+
+        function renderTopServices(data) {
+            const container = document.getElementById('topServices');
+            const colors = ['#38bdf8', '#34d399', '#fbbf24'];
+            
+            container.innerHTML = data.map((item, index) => `
+                <div style="margin-bottom: 1rem;padding:0.8rem;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.02);">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+                        <div style="display:flex;align-items:center;gap:0.8rem;">
+                            <span style="background:rgba(56,189,248,0.04);color:#38bdf8;font-weight:700;font-size:0.8rem;padding:0.1rem 0.6rem;border-radius:40px;">#${index + 1}</span>
+                            <span style="color:#fff;font-weight:500;">${item.service}</span>
+                        </div>
+                        <span style="color:#7dd3fc;font-weight:600;">$${item.revenue}</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;color:rgba(255,255,255,0.2);font-size:0.75rem;">
+                        <span>${item.bookings} bookings</span>
+                        <span>Avg: $${Math.round(item.revenue / item.bookings)}</span>
+                    </div>
+                    <div style="width:100%;height:4px;background:rgba(255,255,255,0.04);border-radius:40px;margin-top:0.5rem;overflow:hidden;">
+                        <div style="width:${(item.bookings / Math.max(...data.map(d => d.bookings))) * 100}%;height:100%;border-radius:40px;background:${colors[index % colors.length]};transition:width 0.8s cubic-bezier(0.23,1,0.32,1);"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderRecentActivity(data) {
+            const container = document.getElementById('recentActivity');
+            
+            const actionColors = {
+                'Booked': '#34d399',
+                'Cancelled': '#f87171',
+                'Confirmed': '#38bdf8',
+                'Completed': '#fbbf24'
+            };
+
+            container.innerHTML = data.map(item => `
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.02);">
+                    <div style="display:flex;align-items:center;gap:0.8rem;">
+                        <span style="width:8px;height:8px;border-radius:50%;background:${actionColors[item.action] || '#38bdf8'};"></span>
+                        <div>
+                            <span style="color:#fff;font-weight:500;">${item.customer}</span>
+                            <span style="color:rgba(255,255,255,0.3);font-size:0.8rem;margin-left:0.5rem;">${item.action}</span>
+                        </div>
+                    </div>
+                    <span style="color:rgba(255,255,255,0.2);font-size:0.75rem;">${item.timestamp}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderDetailedReport(data) {
+            const tbody = document.getElementById('reportTableBody');
+            
+            if (!data || data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:2rem;color:rgba(255,255,255,0.2);">
+                            No data available for the selected period
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = data.map(item => `
+                <tr>
+                    <td style="color:rgba(255,255,255,0.4);">${item.date}</td>
+                    <td style="color:#fff;font-weight:500;">${item.bookings}</td>
+                    <td style="color:#7dd3fc;font-weight:600;">$${item.revenue}</td>
+                    <td style="color:rgba(255,255,255,0.6);">$${item.avgOrder}</td>
+                    <td style="color:rgba(255,255,255,0.6);">${item.topService}</td>
+                    <td style="color:rgba(255,255,255,0.6);">${item.customers}</td>
+                </tr>
+            `).join('');
+        }
+
+        // ============================================================
+        // 🔄 FILTER FUNCTIONS
+        // ============================================================
+
+        function applyFilters() {
+            currentFilters.dateFrom = document.getElementById('dateFrom').value;
+            currentFilters.dateTo = document.getElementById('dateTo').value;
+            currentFilters.type = document.getElementById('reportType').value;
+            refreshReports();
+        }
+
+        function clearFilters() {
+            document.getElementById('dateFrom').value = '';
+            document.getElementById('dateTo').value = '';
+            document.getElementById('reportType').value = 'weekly';
+            currentFilters = { dateFrom: '', dateTo: '', type: 'weekly' };
+            refreshReports();
+        }
+
+        // ============================================================
+        // 📤 EXPORT FUNCTIONS
+        // ============================================================
+
+        async function exportReport(format) {
+            try {
+                showToast(`Generating ${format.toUpperCase()} report...`, 'info');
+                const csv = await API.exportReport(format, currentFilters);
+                
+                // Create download link
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `report_${new Date().toISOString().split('T')[0]}.${format === 'csv' ? 'csv' : format === 'excel' ? 'xlsx' : 'pdf'}`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                showToast(`📊 ${format.toUpperCase()} report exported successfully!`, 'success');
+            } catch (error) {
+                showToast(`❌ Failed to export ${format.toUpperCase()} report.`, 'danger');
+                console.error(error);
+            }
+        }
+
+        function exportChart(type) {
+            // Placeholder for chart export
+            showToast('📊 Chart export coming soon!', 'info');
+        }
+
+        // ============================================================
+        // 🔄 REFRESH FUNCTION
+        // ============================================================
+
+        async function refreshReports() {
+            try {
+                const refreshBtn = document.querySelector('[onclick="refreshReports()"]');
+                if (refreshBtn) {
+                    refreshBtn.disabled = true;
+                    refreshBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Loading...';
+                }
+
+                // Fetch all data in parallel
+                const [summary, revenue, distribution, topServices, activity, detailed] = await Promise.all([
+                    API.getSummary(currentFilters),
+                    API.getRevenueTrend(currentFilters),
+                    API.getBookingDistribution(currentFilters),
+                    API.getTopServices(currentFilters),
+                    API.getRecentActivity(currentFilters),
+                    API.getDetailedReport(currentFilters)
+                ]);
+
+                renderSummary(summary);
+                renderRevenueTrend(revenue);
+                renderDonutChart(distribution);
+                renderTopServices(topServices);
+                renderRecentActivity(activity);
+                renderDetailedReport(detailed);
+
+                showToast('📊 Reports refreshed!', 'success');
+            } catch (error) {
+                showToast('❌ Failed to load reports.', 'danger');
+                console.error(error);
+            } finally {
+                const refreshBtn = document.querySelector('[onclick="refreshReports()"]');
+                if (refreshBtn) {
+                    refreshBtn.disabled = false;
+                    refreshBtn.innerHTML = '<i class="bi bi-arrow-clockwise me-1"></i>Refresh';
+                }
+            }
+        }
+
+        // ============================================================
+        // 🚀 INITIALIZATION
+        // ============================================================
+
+        // ====== LOGOUT ======
+        document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof logout === 'function') {
+                logout();
+            } else {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = '../index.html';
+            }
+        });
+
+        // ====== INIT PAGE ======
+        async function initReports() {
+            // Check if user is admin
+            const user = getUser();
+            if (!user || user.role !== 'admin') {
+                showToast('Admin access required.', 'danger');
+                window.location.href = '../index.html';
+                return;
+            }
+
+            // Set default date range (last 30 days)
+            const today = new Date();
+            const thirtyDaysAgo = new Date(today);
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+            document.getElementById('dateFrom').value = thirtyDaysAgo.toISOString().split('T')[0];
+            document.getElementById('dateTo').value = today.toISOString().split('T')[0];
+
+            await refreshReports();
+
+            console.log('✅ Reports page initialized successfully!');
+            console.log('📊 Reports loaded with default filters.');
+            console.log('🔌 To connect to database, replace the API functions above.');
+            console.log('📍 API base URL:', API_CONFIG.baseURL);
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initReports);
+        } else {
+            initReports();
+        }
+
+        // Make functions globally available
+        window.refreshReports = refreshReports;
+        window.applyFilters = applyFilters;
+        window.clearFilters = clearFilters;
+        window.exportReport = exportReport;
+        window.exportChart = exportChart;
+        window.API = API;
+        window.API_CONFIG = API_CONFIG;
+
+        // ============================================================
+        // 📝 NOTES FOR YOUR FRIEND (THE BACKEND DEVELOPER)
+        // ============================================================
+        /*
+         * 📌 HOW TO CONNECT TO DATABASE:
+         * 
+         * 1. Update API_CONFIG.baseURL to your backend URL
+         * 2. Replace each API function with actual fetch calls
+         * 3. Expected response formats:
+         * 
+         *    GET /reports/summary:
+         *    { totalRevenue: number, totalBookings: number, averageOrder: number, customerCount: number }
+         * 
+         *    GET /reports/revenue-trend:
+         *    [{ label: string, value: number }]
+         * 
+         *    GET /reports/booking-distribution:
+         *    [{ service: string, count: number, color: string }]
+         * 
+         *    GET /reports/top-services:
+         *    [{ service: string, bookings: number, revenue: number }]
+         * 
+         *    GET /reports/recent-activity:
+         *    [{ action: string, customer: string, timestamp: string }]
+         * 
+         *    GET /reports/detailed:
+         *    [{ date: string, bookings: number, revenue: number, avgOrder: number, topService: string, customers: number }]
+         * 
+         *    GET /reports/export:
+         *    Returns CSV string
+         * 
+         * 4. All endpoints require authentication (JWT token)
+         * 5. CORS must be enabled on the backend
+         * 6. Filters should be passed as query parameters: ?dateFrom=2024-01-01&dateTo=2024-01-31&type=weekly
+         */
+        console.log('📝 Backend integration notes printed to console.');
+    </script>
+</body>
+</html>

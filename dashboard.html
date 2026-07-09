@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin Dashboard · KKK Kar Wash</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    
+    <!-- ====== CUSTOM CSS ====== -->
+    <link rel="stylesheet" href="../css/custom.css"/>
+
+    <style>
+        /* Dashboard specific styles */
+        .dashboard-wrapper {
+            padding: 1.5rem 0;
+        }
+
+        /* Stats Cards */
+        .stat-card-dashboard {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.5rem;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card-dashboard::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.03), transparent 70%);
+            pointer-events: none;
+        }
+        .stat-card-dashboard:hover {
+            transform: translateY(-4px);
+            border-color: rgba(56, 189, 248, 0.15);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        .stat-card-dashboard .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(6, 182, 212, 0.04));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.06);
+        }
+        .stat-card-dashboard .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 0.3rem 0 0;
+        }
+        .stat-card-dashboard .stat-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 0;
+        }
+        .stat-card-dashboard .stat-change {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 0.3rem;
+        }
+        .stat-change.up {
+            background: rgba(52, 211, 153, 0.12);
+            color: #34d399;
+        }
+        .stat-change.down {
+            background: rgba(248, 113, 113, 0.12);
+            color: #f87171;
+        }
+
+        /* Chart Cards */
+        .chart-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.5rem;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            height: 100%;
+        }
+        .chart-card:hover {
+            border-color: rgba(56, 189, 248, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .chart-card .chart-title {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Simple Bar Chart */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            height: 150px;
+            padding-top: 10px;
+        }
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .bar-item .bar {
+            width: 100%;
+            max-width: 40px;
+            border-radius: 6px 6px 0 0;
+            background: linear-gradient(180deg, #38bdf8, #1a5f7a);
+            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            min-height: 8px;
+            position: relative;
+        }
+        .bar-item .bar:hover {
+            opacity: 0.8;
+            transform: scaleY(1.02);
+            transform-origin: bottom;
+        }
+        .bar-item .bar-label {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.65rem;
+            font-weight: 500;
+        }
+        .bar-item .bar-value {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Table */
+        .table-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+        }
+        .table-glass thead th {
+            background: rgba(56, 189, 248, 0.04);
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 0.8rem 1rem;
+        }
+        .table-glass tbody td {
+            color: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 0.8rem 1rem;
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+        .table-glass tbody tr:hover {
+            background: rgba(56, 189, 248, 0.03);
+        }
+        .table-glass .status-badge {
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .status-badge.pending {
+            background: rgba(251, 191, 36, 0.12);
+            color: #fbbf24;
+        }
+        .status-badge.confirmed {
+            background: rgba(52, 211, 153, 0.12);
+            color: #34d399;
+        }
+        .status-badge.completed {
+            background: rgba(56, 189, 248, 0.12);
+            color: #38bdf8;
+        }
+        .status-badge.cancelled {
+            background: rgba(248, 113, 113, 0.12);
+            color: #f87171;
+        }
+
+        /* Quick Actions */
+        .quick-action-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            transition: 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .quick-action-btn:hover {
+            background: rgba(56, 189, 248, 0.06);
+            border-color: rgba(56, 189, 248, 0.15);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .quick-action-btn .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(6, 182, 212, 0.04));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #7dd3fc;
+        }
+        .quick-action-btn .label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .quick-action-btn .desc {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Live indicator */
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(52, 211, 153, 0.08);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            border: 1px solid rgba(52, 211, 153, 0.1);
+        }
+        .live-indicator .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34d399;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+        .live-indicator .text {
+            color: #34d399;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        @media (max-width: 768px) {
+            .stat-card-dashboard .stat-number {
+                font-size: 1.6rem;
+            }
+            .bar-chart {
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== PARTICLES BACKGROUND ====== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ====== GLOW ORBS ====== -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div class="main-content">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar navbar-expand-lg navbar-glass py-2 sticky-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="../index.html">
+                    <i class="bi bi-droplet me-2"></i>KKK<span style="font-weight:300;">Kar</span> Wash
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="../index.html"><i class="bi bi-house-door"></i>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../services.html"><i class="bi bi-grid"></i>Services</a></li>
+                        <li class="nav-item" id="navLogin"><a class="nav-link" href="../login.html"><i class="bi bi-box-arrow-in-right"></i>Login</a></li>
+                        <li class="nav-item" id="navRegister"><a class="nav-link" href="../register.html"><i class="bi bi-person-plus"></i>Register</a></li>
+                        <li class="nav-item d-none" id="navBookings"><a class="nav-link" href="../bookings.html"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
+                        <li class="nav-item d-none" id="navProfile"><a class="nav-link" href="../profile.html"><i class="bi bi-person"></i>Profile</a></li>
+                        <li class="nav-item d-none" id="navAdmin"><a class="nav-link active" href="dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                        <li class="nav-item d-none" id="navLogout"><a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                        <li class="nav-item ms-2" id="userBadge"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ====== DASHBOARD ====== -->
+        <div class="dashboard-wrapper">
+            <div class="container">
+
+                <!-- Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                    <div>
+                        <h1 style="color:#fff;font-weight:700;font-size:1.8rem;margin:0;">
+                            <i class="bi bi-speedometer2 me-2" style="color:#38bdf8;"></i>Dashboard
+                        </h1>
+                        <p style="color:rgba(255,255,255,0.3);margin:0;font-size:0.9rem;" id="lastUpdated">
+                            <i class="bi bi-clock me-1"></i>Last updated: Just now
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="live-indicator">
+                            <span class="dot"></span>
+                            <span class="text">Live</span>
+                        </div>
+                        <button class="btn btn-primary-glow btn-sm" onclick="refreshDashboard()" style="padding:0.4rem 1.2rem;font-size:0.85rem;">
+                            <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="row g-3 mb-4" id="statsContainer">
+                    <!-- Stats will be rendered by JavaScript -->
+                </div>
+
+                <!-- Charts Row -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-8">
+                        <div class="chart-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="chart-title"><i class="bi bi-graph-up me-2"></i>Weekly Bookings</div>
+                                <span style="color:rgba(255,255,255,0.2);font-size:0.7rem;">Last 7 days</span>
+                            </div>
+                            <div class="bar-chart" id="weeklyChart">
+                                <!-- Bars generated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="chart-card">
+                            <div class="chart-title"><i class="bi bi-pie-chart me-2"></i>Service Popularity</div>
+                            <div id="servicePopularity" style="margin-top:0.5rem;">
+                                <!-- Service popularity items generated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Bookings & Quick Actions -->
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="chart-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="chart-title"><i class="bi bi-list-ul me-2"></i>Recent Bookings</div>
+                                <a href="bookings.html" style="color:#38bdf8;font-size:0.8rem;text-decoration:none;">View All <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                            <div class="table-glass">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Customer</th>
+                                                <th>Service</th>
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recentBookings">
+                                            <!-- Rows generated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="chart-card">
+                            <div class="chart-title"><i class="bi bi-lightning me-2"></i>Quick Actions</div>
+                            <div class="d-flex flex-column gap-2">
+                                <a href="bookings.html" class="quick-action-btn">
+                                    <span class="icon"><i class="bi bi-calendar-plus"></i></span>
+                                    <div>
+                                        <div class="label">Manage Bookings</div>
+                                        <div class="desc">View and update all bookings</div>
+                                    </div>
+                                </a>
+                                <a href="services.html" class="quick-action-btn">
+                                    <span class="icon"><i class="bi bi-tools"></i></span>
+                                    <div>
+                                        <div class="label">Manage Services</div>
+                                        <div class="desc">Add or update service packages</div>
+                                    </div>
+                                </a>
+                                <a href="customers.html" class="quick-action-btn">
+                                    <span class="icon"><i class="bi bi-people"></i></span>
+                                    <div>
+                                        <div class="label">Manage Customers</div>
+                                        <div class="desc">View customer profiles</div>
+                                    </div>
+                                </a>
+                                <a href="reports.html" class="quick-action-btn">
+                                    <span class="icon"><i class="bi bi-file-earmark-text"></i></span>
+                                    <div>
+                                        <div class="label">Generate Reports</div>
+                                        <div class="desc">Export CSV or PDF reports</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-light py-4 mt-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:700;font-size:1.1rem;">
+                            <i class="bi bi-droplet me-2" style="color:#38bdf8;"></i>KKK Kar Wash
+                        </h5>
+                        <p style="max-width:350px;">Premium car care, reimagined for the digital age.</p>
+                        <div class="social-icons mt-2">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="footer-heading">Information</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="../about.html"><i class="bi bi-info-circle me-2"></i>About Us</a>
+                                    <a href="../contact.html"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+                                    <a href="#"><i class="bi bi-shield me-2"></i>Privacy Policy</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="#"><i class="bi bi-file-text me-2"></i>Terms of Service</a>
+                                    <a href="#"><i class="bi bi-question-circle me-2"></i>FAQ</a>
+                                    <a href="#"><i class="bi bi-bug me-2"></i>Report Issue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.04);">
+                    <p class="mb-0" style="color:rgba(255,255,255,0.2);font-size:0.85rem;">
+                        <i class="bi bi-droplet-half me-2" style="color:rgba(56,189,248,0.3);"></i>
+                        &copy; 2026 KKK Kar Wash. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ====== PARTICLES ANIMATION ====== -->
+    <script src="../js/particles.js"></script>
+    
+    <!-- ====== COMMON JAVASCRIPT ====== -->
+    <script src="../js/common.js"></script>
+
+    <!-- ====== DASHBOARD API INTEGRATION ====== -->
+    <script>
+        /**
+         * ============================================================
+         * DASHBOARD API INTEGRATION
+         * 
+         * YOUR FRIEND CAN REPLACE THE MOCK FUNCTIONS BELOW WITH
+         * ACTUAL API CALLS TO THE BACKEND DATABASE
+         * ============================================================
+         */
+
+        // ============================================================
+        // 🔌 API CONFIGURATION
+        // ============================================================
+        const API_CONFIG = {
+            // Change this to your actual API base URL
+            baseURL: 'http://localhost:8080/api/admin',
+            
+            // Headers for API requests
+            headers: {
+                'Content-Type': 'application/json',
+                // Uncomment when using JWT authentication
+                // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        };
+
+        // ============================================================
+        // 📊 API ENDPOINTS - REPLACE WITH REAL ENDPOINTS
+        // ============================================================
+        const API = {
+            /**
+             * GET /dashboard/stats
+             * Returns: { revenue, bookings, pending, customers }
+             */
+            getStats: async function() {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                // Example:
+                // const response = await fetch(`${API_CONFIG.baseURL}/stats`, {
+                //     headers: API_CONFIG.headers
+                // });
+                // return await response.json();
+                
+                // Mock data for testing
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve({
+                            revenue: Math.floor(Math.random() * 5000) + 1000,
+                            bookings: Math.floor(Math.random() * 200) + 50,
+                            pending: Math.floor(Math.random() * 30) + 5,
+                            customers: Math.floor(Math.random() * 300) + 100
+                        });
+                    }, 300);
+                });
+            },
+
+            /**
+             * GET /dashboard/weekly-bookings
+             * Returns: [{ day: 'Mon', count: 15 }, ...]
+             */
+            getWeeklyBookings: async function() {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                // Example:
+                // const response = await fetch(`${API_CONFIG.baseURL}/weekly-bookings`, {
+                //     headers: API_CONFIG.headers
+                // });
+                // return await response.json();
+                
+                // Mock data for testing
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                        resolve(days.map(day => ({
+                            day: day,
+                            count: Math.floor(Math.random() * 40) + 5
+                        })));
+                    }, 300);
+                });
+            },
+
+            /**
+             * GET /dashboard/service-popularity
+             * Returns: [{ name: 'Basic Wash', count: 45 }, ...]
+             */
+            getServicePopularity: async function() {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                // Example:
+                // const response = await fetch(`${API_CONFIG.baseURL}/service-popularity`, {
+                //     headers: API_CONFIG.headers
+                // });
+                // return await response.json();
+                
+                // Mock data for testing
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve([
+                            { name: 'Basic Wash', count: Math.floor(Math.random() * 50) + 20 },
+                            { name: 'Premium Wash', count: Math.floor(Math.random() * 40) + 15 },
+                            { name: 'Deluxe Wash', count: Math.floor(Math.random() * 30) + 10 }
+                        ]);
+                    }, 300);
+                });
+            },
+
+            /**
+             * GET /dashboard/recent-bookings
+             * Returns: [{ customer, service, date, status, amount }, ...]
+             */
+            getRecentBookings: async function() {
+                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
+                // Example:
+                // const response = await fetch(`${API_CONFIG.baseURL}/recent-bookings`, {
+                //     headers: API_CONFIG.headers
+                // });
+                // return await response.json();
+                
+                // Mock data for testing
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        const names = ['John Doe', 'Sarah Williams', 'Michael Chen', 'Emma Thompson', 'David Lee', 'Lisa Johnson', 'Robert Brown'];
+                        const services = ['Basic Wash', 'Premium Wash', 'Deluxe Wash'];
+                        const statuses = ['pending', 'confirmed', 'completed', 'cancelled'];
+                        const bookings = [];
+                        for (let i = 0; i < 5; i++) {
+                            bookings.push({
+                                customer: names[Math.floor(Math.random() * names.length)],
+                                service: services[Math.floor(Math.random() * services.length)],
+                                date: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                                status: statuses[Math.floor(Math.random() * statuses.length)],
+                                amount: Math.floor(Math.random() * 70) + 25
+                            });
+                        }
+                        resolve(bookings);
+                    }, 300);
+                });
+            }
+        };
+
+        // ============================================================
+        // 🎨 RENDER FUNCTIONS
+        // ============================================================
+
+        function renderStats(stats) {
+            const container = document.getElementById('statsContainer');
+            const changes = [
+                { up: true, text: '12%' },
+                { up: true, text: '8%' },
+                { up: false, text: '3%' },
+                { up: true, text: '15%' }
+            ];
+            
+            const icons = [
+                'bi-currency-dollar',
+                'bi-calendar-check',
+                'bi-clock-history',
+                'bi-people'
+            ];
+            
+            const labels = [
+                'Total Revenue',
+                'Total Bookings',
+                'Pending',
+                'Customers'
+            ];
+            
+            const values = [
+                '$' + stats.revenue,
+                stats.bookings,
+                stats.pending,
+                stats.customers
+            ];
+
+            container.innerHTML = values.map((value, index) => `
+                <div class="col-md-3 col-6">
+                    <div class="stat-card-dashboard">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="stat-icon"><i class="bi ${icons[index]}"></i></div>
+                            <span class="stat-change ${changes[index].up ? 'up' : 'down'}">
+                                <i class="bi bi-arrow-${changes[index].up ? 'up' : 'down'}"></i> ${changes[index].text}
+                            </span>
+                        </div>
+                        <div class="stat-number">${value}</div>
+                        <p class="stat-label">${labels[index]}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderWeeklyChart(data) {
+            const max = Math.max(...data.map(d => d.count), 1);
+            const container = document.getElementById('weeklyChart');
+            
+            container.innerHTML = data.map(item => {
+                const height = (item.count / max) * 120 + 10;
+                return `
+                    <div class="bar-item">
+                        <span class="bar-value">${item.count}</span>
+                        <div class="bar" style="height: ${height}px;"></div>
+                        <span class="bar-label">${item.day}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderServicePopularity(data) {
+            const total = data.reduce((sum, item) => sum + item.count, 0);
+            const container = document.getElementById('servicePopularity');
+            const colors = ['#38bdf8', '#34d399', '#fbbf24'];
+            
+            container.innerHTML = data.map((item, index) => {
+                const percentage = total > 0 ? Math.round((item.count / total) * 100) : 0;
+                return `
+                    <div style="margin-bottom: 1rem;">
+                        <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 0.3rem;">
+                            <span style="color:rgba(255,255,255,0.6);font-size:0.85rem;">${item.name}</span>
+                            <span style="color:rgba(255,255,255,0.3);font-size:0.8rem;">${percentage}%</span>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.04);border-radius:40px;height:6px;overflow:hidden;">
+                            <div style="width:${percentage}%;height:100%;border-radius:40px;background:${colors[index % colors.length]};transition:width 0.8s cubic-bezier(0.23,1,0.32,1);"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderRecentBookings(data) {
+            const container = document.getElementById('recentBookings');
+            
+            container.innerHTML = data.map(item => `
+                <tr>
+                    <td style="color:#fff;font-weight:500;">${item.customer}</td>
+                    <td style="color:rgba(255,255,255,0.6);">${item.service}</td>
+                    <td style="color:rgba(255,255,255,0.4);">${item.date}</td>
+                    <td><span class="status-badge ${item.status}">${item.status}</span></td>
+                    <td style="color:#7dd3fc;font-weight:600;">$${item.amount}</td>
+                </tr>
+            `).join('');
+        }
+
+        function updateTimestamp() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('lastUpdated').innerHTML = `<i class="bi bi-clock me-1"></i>Last updated: ${timeStr}`;
+        }
+
+        // ============================================================
+        // 🔄 REFRESH FUNCTION
+        // ============================================================
+
+        let isLoading = false;
+
+        async function refreshDashboard() {
+            if (isLoading) return;
+            isLoading = true;
+
+            try {
+                // Show loading state on button
+                const refreshBtn = document.querySelector('[onclick="refreshDashboard()"]');
+                if (refreshBtn) {
+                    refreshBtn.disabled = true;
+                    refreshBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Loading...';
+                }
+
+                // Fetch all data in parallel
+                const [stats, weekly, popularity, bookings] = await Promise.all([
+                    API.getStats(),
+                    API.getWeeklyBookings(),
+                    API.getServicePopularity(),
+                    API.getRecentBookings()
+                ]);
+
+                // Render all data
+                renderStats(stats);
+                renderWeeklyChart(weekly);
+                renderServicePopularity(popularity);
+                renderRecentBookings(bookings);
+                updateTimestamp();
+
+                showToast('📊 Dashboard data refreshed!', 'success');
+            } catch (error) {
+                console.error('Error refreshing dashboard:', error);
+                showToast('❌ Failed to refresh dashboard data.', 'danger');
+            } finally {
+                isLoading = false;
+                const refreshBtn = document.querySelector('[onclick="refreshDashboard()"]');
+                if (refreshBtn) {
+                    refreshBtn.disabled = false;
+                    refreshBtn.innerHTML = '<i class="bi bi-arrow-clockwise me-1"></i>Refresh';
+                }
+            }
+        }
+
+        // ============================================================
+        // ⏰ AUTO-REFRESH
+        // ============================================================
+
+        let autoRefreshInterval;
+
+        function startAutoRefresh() {
+            if (autoRefreshInterval) clearInterval(autoRefreshInterval);
+            autoRefreshInterval = setInterval(refreshDashboard, 30000); // Refresh every 30 seconds
+        }
+
+        function stopAutoRefresh() {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+                autoRefreshInterval = null;
+            }
+        }
+
+        // ============================================================
+        // 🚀 INITIALIZATION
+        // ============================================================
+
+        // ====== LOGOUT ======
+        document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof logout === 'function') {
+                logout();
+            } else {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = '../index.html';
+            }
+        });
+
+        // ====== INIT DASHBOARD ======
+        async function initDashboard() {
+            // Check if user is admin
+            const user = getUser();
+            if (!user || user.role !== 'admin') {
+                showToast('Admin access required.', 'danger');
+                window.location.href = '../index.html';
+                return;
+            }
+
+            // Initial data load
+            await refreshDashboard();
+            
+            // Start auto-refresh
+            startAutoRefresh();
+
+            console.log('✅ Dashboard initialized successfully!');
+            console.log('📊 Data will refresh every 30 seconds.');
+            console.log('🔌 To connect to database, replace the API functions above.');
+            console.log('📍 API base URL:', API_CONFIG.baseURL);
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initDashboard);
+        } else {
+            initDashboard();
+        }
+
+        // Make refresh function globally available
+        window.refreshDashboard = refreshDashboard;
+        window.startAutoRefresh = startAutoRefresh;
+        window.stopAutoRefresh = stopAutoRefresh;
+        window.API = API;
+        window.API_CONFIG = API_CONFIG;
+
+        // ============================================================
+        // 📝 NOTES FOR YOUR FRIEND (THE BACKEND DEVELOPER)
+        // ============================================================
+        /*
+         * 📌 HOW TO CONNECT TO DATABASE:
+         * 
+         * 1. Update API_CONFIG.baseURL to your backend URL
+         * 2. Replace each API function with actual fetch calls
+         * 3. Example for getStats():
+         * 
+         *    getStats: async function() {
+         *        const response = await fetch('${API_CONFIG.baseURL}/stats', {
+         *            headers: {
+         *                'Content-Type': 'application/json',
+         *                'Authorization': `Bearer ${localStorage.getItem('token')}`
+         *            }
+         *        });
+         *        if (!response.ok) throw new Error('Failed to fetch stats');
+         *        return await response.json();
+         *    }
+         * 
+         * 4. Expected response formats:
+         *    - /stats: { revenue: number, bookings: number, pending: number, customers: number }
+         *    - /weekly-bookings: [{ day: string, count: number }]
+         *    - /service-popularity: [{ name: string, count: number }]
+         *    - /recent-bookings: [{ customer: string, service: string, date: string, status: string, amount: number }]
+         * 
+         * 5. All endpoints require authentication (JWT token)
+         * 6. CORS must be enabled on the backend
+         */
+        console.log('📝 Backend integration notes printed to console.');
+    </script>
+</body>
+</html>

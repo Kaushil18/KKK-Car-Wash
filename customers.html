@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Manage Bookings · KKK Kar Wash</title>
+    <title>Manage Customers · KKK Kar Wash</title>
 
     <!-- Bootstrap 5 + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../css/custom.css"/>
 
     <style>
-        /* Bookings page specific styles */
+        /* Customers page specific styles */
         .page-header {
             margin-bottom: 2rem;
         }
@@ -30,6 +30,47 @@
             color: rgba(255, 255, 255, 0.3);
             margin: 0;
             font-size: 0.9rem;
+        }
+
+        /* Stats Cards */
+        .stat-card-customers {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.2rem 1.5rem;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            height: 100%;
+        }
+        .stat-card-customers:hover {
+            transform: translateY(-3px);
+            border-color: rgba(56, 189, 248, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .stat-card-customers .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(6, 182, 212, 0.04));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.06);
+        }
+        .stat-card-customers .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 0.2rem 0 0;
+        }
+        .stat-card-customers .stat-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin: 0;
         }
 
         /* Filter section */
@@ -102,6 +143,18 @@
         .table-glass tbody tr:hover {
             background: rgba(56, 189, 248, 0.03);
         }
+        .table-glass .customer-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a5f7a, #38bdf8);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #fff;
+            font-weight: 600;
+        }
         .table-glass .status-badge {
             padding: 0.2rem 0.8rem;
             border-radius: 40px;
@@ -109,19 +162,11 @@
             font-weight: 600;
             display: inline-block;
         }
-        .status-badge.pending {
-            background: rgba(251, 191, 36, 0.12);
-            color: #fbbf24;
-        }
-        .status-badge.confirmed {
+        .status-badge.active {
             background: rgba(52, 211, 153, 0.12);
             color: #34d399;
         }
-        .status-badge.completed {
-            background: rgba(56, 189, 248, 0.12);
-            color: #38bdf8;
-        }
-        .status-badge.cancelled {
+        .status-badge.inactive {
             background: rgba(248, 113, 113, 0.12);
             color: #f87171;
         }
@@ -133,11 +178,11 @@
             font-size: 0.8rem;
             transition: 0.3s;
         }
-        .btn-action.edit {
+        .btn-action.view {
             background: rgba(56, 189, 248, 0.08);
             color: #38bdf8;
         }
-        .btn-action.edit:hover {
+        .btn-action.view:hover {
             background: rgba(56, 189, 248, 0.15);
             color: #7dd3fc;
         }
@@ -148,37 +193,6 @@
         .btn-action.delete:hover {
             background: rgba(248, 113, 113, 0.15);
             color: #fca5a5;
-        }
-        .btn-action.view {
-            background: rgba(255, 255, 255, 0.04);
-            color: rgba(255, 255, 255, 0.4);
-        }
-        .btn-action.view:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-        }
-
-        /* Status dropdown in table */
-        .status-select {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 40px;
-            color: #fff;
-            padding: 0.2rem 0.8rem;
-            font-size: 0.75rem;
-            font-weight: 500;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .status-select:focus {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.05);
-            color: #fff;
-        }
-        .status-select option {
-            background: #0a0f1a;
-            color: #fff;
         }
 
         /* Pagination */
@@ -214,7 +228,7 @@
             font-size: 0.8rem;
         }
 
-        /* Modal */
+        /* Customer Detail Modal */
         .modal-glass .modal-content {
             background: rgba(10, 15, 26, 0.92);
             backdrop-filter: blur(32px) saturate(1.6);
@@ -230,16 +244,14 @@
         .modal-glass .modal-footer {
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .modal-glass .form-control,
-        .modal-glass .form-select {
+        .modal-glass .form-control {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 16px;
             color: #fff;
             padding: 0.8rem 1.2rem;
         }
-        .modal-glass .form-control:focus,
-        .modal-glass .form-select:focus {
+        .modal-glass .form-control:focus {
             background: rgba(255, 255, 255, 0.06);
             border-color: rgba(56, 189, 248, 0.3);
             box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.05);
@@ -248,9 +260,24 @@
         .modal-glass .form-control::placeholder {
             color: rgba(255, 255, 255, 0.2);
         }
+        .modal-glass .form-control:disabled {
+            opacity: 0.5;
+        }
         .modal-glass label {
             color: rgba(255, 255, 255, 0.6);
             font-weight: 500;
+        }
+        .modal-glass .detail-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a5f7a, #38bdf8);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #fff;
+            font-weight: 700;
         }
 
         /* Empty state */
@@ -284,9 +311,8 @@
                 padding: 0.5rem;
                 font-size: 0.75rem;
             }
-            .status-select {
-                font-size: 0.65rem;
-                padding: 0.1rem 0.5rem;
+            .stat-card-customers .stat-number {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -329,77 +355,70 @@
             </div>
         </nav>
 
-        <!-- ====== BOOKINGS CONTENT ====== -->
+        <!-- ====== CUSTOMERS CONTENT ====== -->
         <div class="container py-4">
 
             <!-- Header -->
             <div class="page-header d-flex justify-content-between align-items-center flex-wrap gap-3">
                 <div>
-                    <h1><i class="bi bi-calendar-check me-2" style="color:#38bdf8;"></i>Manage Bookings</h1>
-                    <p>View, filter, and manage all customer bookings</p>
+                    <h1><i class="bi bi-people me-2" style="color:#38bdf8;"></i>Manage Customers</h1>
+                    <p>View and manage customer accounts</p>
                 </div>
-                <button class="btn btn-primary-glow btn-sm" onclick="refreshBookings()" style="padding:0.4rem 1.2rem;font-size:0.85rem;">
+                <button class="btn btn-primary-glow btn-sm" onclick="refreshCustomers()" style="padding:0.4rem 1.2rem;font-size:0.85rem;">
                     <i class="bi bi-arrow-clockwise me-1"></i>Refresh
                 </button>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="row g-3 mb-4" id="statsContainer">
+                <!-- Stats loaded by JavaScript -->
             </div>
 
             <!-- Filters -->
             <div class="filter-section">
                 <div class="row g-3 align-items-end">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label><i class="bi bi-search me-1"></i>Search</label>
-                        <input type="text" class="form-control" id="searchInput" placeholder="Customer or service..." oninput="applyFilters()">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Name or email..." oninput="applyFilters()">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label><i class="bi bi-funnel me-1"></i>Status</label>
                         <select class="form-select" id="statusFilter" onchange="applyFilters()">
                             <option value="">All Statuses</option>
-                            <option value="pending">Pending</option>
-                            <option value="confirmed">Confirmed</option>
-                            <option value="completed">Completed</option>
-                            <option value="cancelled">Cancelled</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <label><i class="bi bi-calendar3 me-1"></i>From</label>
-                        <input type="date" class="form-control" id="dateFrom" onchange="applyFilters()">
-                    </div>
-                    <div class="col-md-2">
-                        <label><i class="bi bi-calendar3 me-1"></i>To</label>
-                        <input type="date" class="form-control" id="dateTo" onchange="applyFilters()">
-                    </div>
                     <div class="col-md-3">
+                        <label><i class="bi bi-calendar3 me-1"></i>Joined After</label>
+                        <input type="date" class="form-control" id="dateFilter" onchange="applyFilters()">
+                    </div>
+                    <div class="col-md-2">
                         <label>&nbsp;</label>
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-outline-glow btn-sm flex-fill" onclick="clearFilters()" style="padding:0.4rem;font-size:0.85rem;">
-                                <i class="bi bi-x-circle me-1"></i>Clear
-                            </button>
-                            <button class="btn btn-primary-glow btn-sm flex-fill" onclick="exportCSV()" style="padding:0.4rem;font-size:0.85rem;">
-                                <i class="bi bi-file-earmark-excel me-1"></i>Export CSV
-                            </button>
-                        </div>
+                        <button class="btn btn-outline-glow btn-sm w-100" onclick="clearFilters()" style="padding:0.4rem;font-size:0.85rem;">
+                            <i class="bi bi-x-circle me-1"></i>Clear
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Bookings Table -->
+            <!-- Customers Table -->
             <div class="table-glass">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Customer</th>
-                                <th>Service</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Vehicle</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Bookings</th>
+                                <th>Total Spent</th>
                                 <th>Status</th>
-                                <th>Amount</th>
+                                <th>Joined</th>
                                 <th style="text-align:center;">Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="bookingsTableBody">
+                        <tbody id="customersTableBody">
                             <!-- Rows generated by JavaScript -->
                         </tbody>
                     </table>
@@ -413,70 +432,53 @@
 
         </div>
 
-        <!-- ====== EDIT BOOKING MODAL ====== -->
-        <div class="modal fade" id="editBookingModal" tabindex="-1" aria-hidden="true">
+        <!-- ====== CUSTOMER DETAIL MODAL ====== -->
+        <div class="modal fade" id="customerDetailModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content modal-glass">
                     <div class="modal-header border-0">
-                        <h5 class="modal-title fw-bold"><i class="bi bi-pencil me-2" style="color:#38bdf8;"></i>Edit Booking</h5>
+                        <h5 class="modal-title fw-bold"><i class="bi bi-person me-2" style="color:#38bdf8;"></i>Customer Details</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editBookingForm">
-                            <input type="hidden" id="editBookingId">
-                            <div class="mb-3">
-                                <label class="form-label">Customer</label>
-                                <input type="text" class="form-control" id="editCustomer" disabled>
+                        <div class="text-center mb-4">
+                            <div class="detail-avatar" id="detailAvatar">JD</div>
+                            <h4 class="mt-2" id="detailName" style="color:#fff;font-weight:600;">John Doe</h4>
+                            <p style="color:rgba(255,255,255,0.3);margin:0;" id="detailEmail">john@example.com</p>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="detailPhone" disabled>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Service</label>
-                                <select class="form-select" id="editService">
-                                    <option value="Basic Wash">Basic Wash</option>
-                                    <option value="Premium Wash">Premium Wash</option>
-                                    <option value="Deluxe Wash">Deluxe Wash</option>
-                                </select>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Date</label>
-                                    <input type="date" class="form-control" id="editDate">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Time</label>
-                                    <select class="form-select" id="editTime">
-                                        <option>09:00</option>
-                                        <option>10:00</option>
-                                        <option>11:00</option>
-                                        <option>13:00</option>
-                                        <option>14:00</option>
-                                        <option>15:00</option>
-                                        <option>16:00</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label class="form-label">Vehicle</label>
-                                <input type="text" class="form-control" id="editVehicle" placeholder="e.g., Sedan, SUV">
-                            </div>
-                            <div class="mb-3">
+                            <div class="col-md-6">
                                 <label class="form-label">Status</label>
-                                <select class="form-select" id="editStatus">
-                                    <option value="pending">Pending</option>
-                                    <option value="confirmed">Confirmed</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="cancelled">Cancelled</option>
-                                </select>
+                                <input type="text" class="form-control" id="detailStatus" disabled>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Amount ($)</label>
-                                <input type="number" class="form-control" id="editAmount" step="0.01">
+                            <div class="col-md-6">
+                                <label class="form-label">Total Bookings</label>
+                                <input type="text" class="form-control" id="detailBookings" disabled>
                             </div>
-                        </form>
+                            <div class="col-md-6">
+                                <label class="form-label">Total Spent</label>
+                                <input type="text" class="form-control" id="detailSpent" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Joined Date</label>
+                                <input type="text" class="form-control" id="detailJoined" disabled>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Recent Bookings</label>
+                                <div id="detailRecentBookings" style="color:rgba(255,255,255,0.4);font-size:0.9rem;">
+                                    No recent bookings
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer border-0">
-                        <button class="btn btn-outline-glow" data-bs-dismiss="modal" style="padding:0.6rem 2rem;">Cancel</button>
-                        <button class="btn btn-primary-glow" onclick="saveBooking()" style="padding:0.6rem 2rem;">
-                            <i class="bi bi-check me-1"></i>Save Changes
+                        <button class="btn btn-outline-glow" data-bs-dismiss="modal" style="padding:0.6rem 2rem;">Close</button>
+                        <button class="btn btn-primary-glow" onclick="toggleCustomerStatus()" style="padding:0.6rem 2rem;">
+                            <i class="bi bi-toggle-on me-1"></i><span id="statusToggleText">Activate</span>
                         </button>
                     </div>
                 </div>
@@ -539,11 +541,11 @@
     <!-- ====== COMMON JAVASCRIPT ====== -->
     <script src="../js/common.js"></script>
 
-    <!-- ====== BOOKINGS API INTEGRATION ====== -->
+    <!-- ====== CUSTOMERS API INTEGRATION ====== -->
     <script>
         /**
          * ============================================================
-         * BOOKINGS API INTEGRATION
+         * CUSTOMERS API INTEGRATION
          * 
          * YOUR FRIEND CAN REPLACE THE MOCK FUNCTIONS BELOW WITH
          * ACTUAL API CALLS TO THE BACKEND DATABASE
@@ -566,101 +568,96 @@
         // ============================================================
         const API = {
             /**
-             * GET /bookings
-             * Returns: [{ id, customer, service, date, time, vehicle, status, amount }, ...]
+             * GET /customers
+             * Returns: [{ id, name, email, phone, bookings, totalSpent, status, joined }, ...]
              */
-            getBookings: async function() {
+            getCustomers: async function() {
                 // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
                 return new Promise((resolve) => {
                     setTimeout(() => {
-                        const customers = ['John Doe', 'Sarah Williams', 'Michael Chen', 'Emma Thompson', 'David Lee', 'Lisa Johnson', 'Robert Brown', 'Amanda White'];
-                        const services = ['Basic Wash', 'Premium Wash', 'Deluxe Wash'];
-                        const statuses = ['pending', 'confirmed', 'completed', 'cancelled'];
-                        const vehicles = ['Sedan', 'SUV', 'Hatchback', 'Truck', 'Coupe'];
-                        const bookings = [];
-                        for (let i = 1; i <= 25; i++) {
-                            const date = new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000);
-                            bookings.push({
+                        const firstNames = ['John', 'Sarah', 'Michael', 'Emma', 'David', 'Lisa', 'Robert', 'Amanda', 'James', 'Maria', 'William', 'Jennifer'];
+                        const lastNames = ['Doe', 'Williams', 'Chen', 'Thompson', 'Lee', 'Johnson', 'Brown', 'White', 'Davis', 'Wilson', 'Taylor', 'Anderson'];
+                        const customers = [];
+                        for (let i = 1; i <= 20; i++) {
+                            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+                            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                            const name = `${firstName} ${lastName}`;
+                            const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`;
+                            const phone = `+230 5${Math.floor(Math.random() * 9) + 1}${Math.floor(Math.random() * 10000000).toString().padStart(7, '0')}`;
+                            const bookings = Math.floor(Math.random() * 15) + 1;
+                            const totalSpent = bookings * (Math.floor(Math.random() * 40) + 15);
+                            const status = Math.random() > 0.2 ? 'active' : 'inactive';
+                            const date = new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000);
+                            customers.push({
                                 id: i,
-                                customer: customers[Math.floor(Math.random() * customers.length)],
-                                service: services[Math.floor(Math.random() * services.length)],
-                                date: date.toISOString().split('T')[0],
-                                time: ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00'][Math.floor(Math.random() * 7)],
-                                vehicle: vehicles[Math.floor(Math.random() * vehicles.length)],
-                                status: statuses[Math.floor(Math.random() * statuses.length)],
-                                amount: Math.floor(Math.random() * 70) + 25
+                                name: name,
+                                email: email,
+                                phone: phone,
+                                bookings: bookings,
+                                totalSpent: totalSpent,
+                                status: status,
+                                joined: date.toISOString().split('T')[0]
                             });
                         }
-                        // Sort by date (newest first)
-                        bookings.sort((a, b) => new Date(b.date) - new Date(a.date));
-                        resolve(bookings);
+                        // Sort by join date (newest first)
+                        customers.sort((a, b) => new Date(b.joined) - new Date(a.joined));
+                        resolve(customers);
                     }, 300);
                 });
             },
 
             /**
-             * PUT /bookings/{id}
-             * Updates a booking
+             * PUT /customers/{id}/status
+             * Toggles customer status
              */
-            updateBooking: async function(id, data) {
+            toggleCustomerStatus: async function(id, currentStatus) {
                 // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
                 // Example:
-                // const response = await fetch(`${API_CONFIG.baseURL}/bookings/${id}`, {
+                // const response = await fetch(`${API_CONFIG.baseURL}/customers/${id}/status`, {
                 //     method: 'PUT',
                 //     headers: API_CONFIG.headers,
-                //     body: JSON.stringify(data)
+                //     body: JSON.stringify({ status: currentStatus === 'active' ? 'inactive' : 'active' })
                 // });
                 // return await response.json();
                 
                 return new Promise((resolve) => {
                     setTimeout(() => {
-                        resolve({ success: true, message: 'Booking updated successfully' });
+                        resolve({ 
+                            success: true, 
+                            message: `Customer ${currentStatus === 'active' ? 'deactivated' : 'activated'} successfully`,
+                            newStatus: currentStatus === 'active' ? 'inactive' : 'active'
+                        });
                     }, 300);
                 });
             },
 
             /**
-             * DELETE /bookings/{id}
-             * Deletes a booking
+             * GET /customers/{id}/bookings
+             * Returns recent bookings for a customer
              */
-            deleteBooking: async function(id) {
+            getCustomerBookings: async function(id) {
                 // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
                 // Example:
-                // const response = await fetch(`${API_CONFIG.baseURL}/bookings/${id}`, {
-                //     method: 'DELETE',
+                // const response = await fetch(`${API_CONFIG.baseURL}/customers/${id}/bookings`, {
                 //     headers: API_CONFIG.headers
                 // });
                 // return await response.json();
                 
                 return new Promise((resolve) => {
                     setTimeout(() => {
-                        resolve({ success: true, message: 'Booking deleted successfully' });
-                    }, 300);
-                });
-            },
-
-            /**
-             * GET /bookings/export
-             * Exports bookings as CSV
-             */
-            exportBookings: async function(filters) {
-                // 🔄 REPLACE THIS WITH YOUR ACTUAL API CALL
-                // Example:
-                // const response = await fetch(`${API_CONFIG.baseURL}/bookings/export`, {
-                //     method: 'POST',
-                //     headers: API_CONFIG.headers,
-                //     body: JSON.stringify(filters)
-                // });
-                // return await response.text(); // CSV string
-                
-                return new Promise((resolve) => {
-                    setTimeout(() => {
-                        // Generate mock CSV
-                        const headers = 'Customer,Service,Date,Time,Vehicle,Status,Amount\n';
-                        const rows = bookingsData.slice(0, 10).map(b => 
-                            `${b.customer},${b.service},${b.date},${b.time},${b.vehicle},${b.status},${b.amount}`
-                        ).join('\n');
-                        resolve(headers + rows);
+                        const services = ['Basic Wash', 'Premium Wash', 'Deluxe Wash'];
+                        const statuses = ['pending', 'confirmed', 'completed', 'cancelled'];
+                        const bookings = [];
+                        for (let i = 0; i < Math.min(3, Math.floor(Math.random() * 4) + 1); i++) {
+                            const date = new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000);
+                            bookings.push({
+                                service: services[Math.floor(Math.random() * services.length)],
+                                date: date.toISOString().split('T')[0],
+                                status: statuses[Math.floor(Math.random() * statuses.length)],
+                                amount: Math.floor(Math.random() * 70) + 25
+                            });
+                        }
+                        resolve(bookings);
                     }, 300);
                 });
             }
@@ -669,31 +666,71 @@
         // ============================================================
         // 📦 STATE MANAGEMENT
         // ============================================================
-        let bookingsData = [];
+        let customersData = [];
         let filteredData = [];
         let currentPage = 1;
         const itemsPerPage = 10;
-        let editModal = null;
+        let detailModal = null;
+        let selectedCustomerId = null;
 
         // ============================================================
         // 🎨 RENDER FUNCTIONS
         // ============================================================
 
-        function getStatusBadge(status) {
-            return `<span class="status-badge ${status}">${status}</span>`;
+        function renderStats(stats) {
+            const container = document.getElementById('statsContainer');
+            container.innerHTML = `
+                <div class="col-md-4">
+                    <div class="stat-card-customers">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="stat-icon"><i class="bi bi-people"></i></div>
+                            <div>
+                                <div class="stat-number">${stats.total}</div>
+                                <p class="stat-label">Total Customers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card-customers">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="stat-icon"><i class="bi bi-check-circle"></i></div>
+                            <div>
+                                <div class="stat-number">${stats.active}</div>
+                                <p class="stat-label">Active Customers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card-customers">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="stat-icon"><i class="bi bi-clock-history"></i></div>
+                            <div>
+                                <div class="stat-number">${stats.inactive}</div>
+                                <p class="stat-label">Inactive Customers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
-        function renderBookings(data) {
-            const tbody = document.getElementById('bookingsTableBody');
+        function getInitials(name) {
+            return name.split(' ').map(word => word[0]).join('').toUpperCase().slice(0, 2);
+        }
+
+        function renderCustomers(data) {
+            const tbody = document.getElementById('customersTableBody');
             
             if (!data || data.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="9">
+                        <td colspan="8">
                             <div class="empty-state">
-                                <div class="icon"><i class="bi bi-inbox"></i></div>
-                                <h5>No bookings found</h5>
-                                <p>Try adjusting your filters or create a new booking.</p>
+                                <div class="icon"><i class="bi bi-people"></i></div>
+                                <h5>No customers found</h5>
+                                <p>Try adjusting your filters or wait for customers to register.</p>
                             </div>
                         </td>
                     </tr>
@@ -705,33 +742,25 @@
             const end = start + itemsPerPage;
             const pageData = data.slice(start, end);
 
-            tbody.innerHTML = pageData.map((booking, index) => `
+            tbody.innerHTML = pageData.map((customer) => `
                 <tr>
-                    <td style="color:rgba(255,255,255,0.2);font-size:0.8rem;">${start + index + 1}</td>
-                    <td style="color:#fff;font-weight:500;">${booking.customer}</td>
-                    <td style="color:rgba(255,255,255,0.6);">${booking.service}</td>
-                    <td style="color:rgba(255,255,255,0.4);">${booking.date}</td>
-                    <td style="color:rgba(255,255,255,0.4);">${booking.time}</td>
-                    <td style="color:rgba(255,255,255,0.4);">${booking.vehicle}</td>
                     <td>
-                        <select class="status-select" onchange="updateStatus(${booking.id}, this.value)" 
-                                style="border-color: ${booking.status === 'pending' ? 'rgba(251,191,36,0.2)' : 
-                                       booking.status === 'confirmed' ? 'rgba(52,211,153,0.2)' : 
-                                       booking.status === 'completed' ? 'rgba(56,189,248,0.2)' : 
-                                       'rgba(248,113,113,0.2)'}">
-                            <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Pending</option>
-                            <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
-                            <option value="completed" ${booking.status === 'completed' ? 'selected' : ''}>Completed</option>
-                            <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
-                        </select>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="customer-avatar">${getInitials(customer.name)}</span>
+                            <span style="color:#fff;font-weight:500;">${customer.name}</span>
+                        </div>
                     </td>
-                    <td style="color:#7dd3fc;font-weight:600;">$${booking.amount}</td>
+                    <td style="color:rgba(255,255,255,0.4);">${customer.email}</td>
+                    <td style="color:rgba(255,255,255,0.4);">${customer.phone || '—'}</td>
+                    <td style="color:#fff;font-weight:500;">${customer.bookings}</td>
+                    <td style="color:#7dd3fc;font-weight:600;">$${customer.totalSpent}</td>
+                    <td>
+                        <span class="status-badge ${customer.status}">${customer.status}</span>
+                    </td>
+                    <td style="color:rgba(255,255,255,0.3);font-size:0.85rem;">${customer.joined}</td>
                     <td style="text-align:center;white-space:nowrap;">
-                        <button class="btn-action edit me-1" onclick="openEditModal(${booking.id})" title="Edit">
-                            <i class="bi bi-pencil"></i>
-                        </button>
-                        <button class="btn-action delete" onclick="deleteBooking(${booking.id})" title="Delete">
-                            <i class="bi bi-trash"></i>
+                        <button class="btn-action view me-1" onclick="viewCustomer(${customer.id})" title="View Details">
+                            <i class="bi bi-eye"></i>
                         </button>
                     </td>
                 </tr>
@@ -769,7 +798,7 @@
                 <button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
                     <i class="bi bi-chevron-right"></i>
                 </button>
-                <span class="page-info ms-2">${total} bookings</span>
+                <span class="page-info ms-2">${total} customers</span>
             `;
 
             container.innerHTML = html;
@@ -782,42 +811,53 @@
         function applyFilters() {
             const search = document.getElementById('searchInput').value.toLowerCase().trim();
             const status = document.getElementById('statusFilter').value;
-            const dateFrom = document.getElementById('dateFrom').value;
-            const dateTo = document.getElementById('dateTo').value;
+            const dateFilter = document.getElementById('dateFilter').value;
 
-            filteredData = bookingsData.filter(booking => {
+            filteredData = customersData.filter(customer => {
                 // Search filter
-                if (search && !booking.customer.toLowerCase().includes(search) && 
-                    !booking.service.toLowerCase().includes(search)) {
+                if (search && !customer.name.toLowerCase().includes(search) && 
+                    !customer.email.toLowerCase().includes(search)) {
                     return false;
                 }
                 // Status filter
-                if (status && booking.status !== status) {
+                if (status && customer.status !== status) {
                     return false;
                 }
-                // Date from filter
-                if (dateFrom && booking.date < dateFrom) {
-                    return false;
-                }
-                // Date to filter
-                if (dateTo && booking.date > dateTo) {
+                // Date filter (joined after)
+                if (dateFilter && customer.joined < dateFilter) {
                     return false;
                 }
                 return true;
             });
 
+            // Update stats
+            const stats = {
+                total: filteredData.length,
+                active: filteredData.filter(c => c.status === 'active').length,
+                inactive: filteredData.filter(c => c.status === 'inactive').length
+            };
+            renderStats(stats);
+
             currentPage = 1;
-            renderBookings(filteredData);
+            renderCustomers(filteredData);
         }
 
         function clearFilters() {
             document.getElementById('searchInput').value = '';
             document.getElementById('statusFilter').value = '';
-            document.getElementById('dateFrom').value = '';
-            document.getElementById('dateTo').value = '';
-            filteredData = [...bookingsData];
+            document.getElementById('dateFilter').value = '';
+            
+            // Reset to all data
+            const stats = {
+                total: customersData.length,
+                active: customersData.filter(c => c.status === 'active').length,
+                inactive: customersData.filter(c => c.status === 'inactive').length
+            };
+            renderStats(stats);
+            
+            filteredData = [...customersData];
             currentPage = 1;
-            renderBookings(filteredData);
+            renderCustomers(filteredData);
         }
 
         // ============================================================
@@ -828,129 +868,97 @@
             const totalPages = Math.ceil(filteredData.length / itemsPerPage);
             if (page < 1 || page > totalPages) return;
             currentPage = page;
-            renderBookings(filteredData);
+            renderCustomers(filteredData);
         }
 
         // ============================================================
-        // ✏️ CRUD OPERATIONS
+        // 👤 CUSTOMER DETAILS
         // ============================================================
 
-        function openEditModal(id) {
-            const booking = bookingsData.find(b => b.id === id);
-            if (!booking) return;
+        async function viewCustomer(id) {
+            const customer = customersData.find(c => c.id === id);
+            if (!customer) return;
 
-            document.getElementById('editBookingId').value = booking.id;
-            document.getElementById('editCustomer').value = booking.customer;
-            document.getElementById('editService').value = booking.service;
-            document.getElementById('editDate').value = booking.date;
-            document.getElementById('editTime').value = booking.time;
-            document.getElementById('editVehicle').value = booking.vehicle;
-            document.getElementById('editStatus').value = booking.status;
-            document.getElementById('editAmount').value = booking.amount;
+            selectedCustomerId = id;
 
-            if (!editModal) {
-                editModal = new bootstrap.Modal(document.getElementById('editBookingModal'));
+            // Set basic info
+            document.getElementById('detailAvatar').textContent = getInitials(customer.name);
+            document.getElementById('detailName').textContent = customer.name;
+            document.getElementById('detailEmail').textContent = customer.email;
+            document.getElementById('detailPhone').value = customer.phone || 'Not provided';
+            document.getElementById('detailStatus').value = customer.status.charAt(0).toUpperCase() + customer.status.slice(1);
+            document.getElementById('detailBookings').value = customer.bookings;
+            document.getElementById('detailSpent').value = `$${customer.totalSpent}`;
+            document.getElementById('detailJoined').value = customer.joined;
+
+            // Status toggle button
+            const toggleBtn = document.getElementById('statusToggleText');
+            if (customer.status === 'active') {
+                toggleBtn.textContent = 'Deactivate';
+            } else {
+                toggleBtn.textContent = 'Activate';
             }
-            editModal.show();
+
+            // Fetch recent bookings
+            try {
+                const bookings = await API.getCustomerBookings(id);
+                const container = document.getElementById('detailRecentBookings');
+                
+                if (bookings && bookings.length > 0) {
+                    container.innerHTML = bookings.map(b => `
+                        <div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.03);">
+                            <span>${b.service}</span>
+                            <span style="color:rgba(255,255,255,0.3);">${b.date}</span>
+                            <span style="color:#7dd3fc;">$${b.amount}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = 'No recent bookings';
+                }
+            } catch (error) {
+                console.error('Error fetching customer bookings:', error);
+                document.getElementById('detailRecentBookings').textContent = 'Unable to load bookings';
+            }
+
+            if (!detailModal) {
+                detailModal = new bootstrap.Modal(document.getElementById('customerDetailModal'));
+            }
+            detailModal.show();
         }
 
-        async function saveBooking() {
-            const id = parseInt(document.getElementById('editBookingId').value);
-            const data = {
-                service: document.getElementById('editService').value,
-                date: document.getElementById('editDate').value,
-                time: document.getElementById('editTime').value,
-                vehicle: document.getElementById('editVehicle').value,
-                status: document.getElementById('editStatus').value,
-                amount: parseFloat(document.getElementById('editAmount').value)
-            };
+        async function toggleCustomerStatus() {
+            if (!selectedCustomerId) return;
+
+            const customer = customersData.find(c => c.id === selectedCustomerId);
+            if (!customer) return;
+
+            const currentStatus = customer.status;
+            const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
 
             try {
-                showToast('Saving booking...', 'info');
-                const result = await API.updateBooking(id, data);
+                const result = await API.toggleCustomerStatus(selectedCustomerId, currentStatus);
                 
                 // Update local data
-                const booking = bookingsData.find(b => b.id === id);
-                if (booking) {
-                    Object.assign(booking, data);
-                }
+                customer.status = newStatus;
                 
-                editModal.hide();
-                applyFilters();
-                showToast('✅ Booking updated successfully!', 'success');
-            } catch (error) {
-                showToast('❌ Failed to update booking.', 'danger');
-                console.error(error);
-            }
-        }
-
-        async function updateStatus(id, newStatus) {
-            try {
-                const result = await API.updateBooking(id, { status: newStatus });
-                
-                // Update local data
-                const booking = bookingsData.find(b => b.id === id);
-                if (booking) {
-                    booking.status = newStatus;
-                }
-                
-                applyFilters();
-                showToast(`✅ Status updated to ${newStatus}`, 'success');
-            } catch (error) {
-                showToast('❌ Failed to update status.', 'danger');
-                console.error(error);
-                // Revert the select
-                applyFilters();
-            }
-        }
-
-        async function deleteBooking(id) {
-            if (!confirm('Are you sure you want to delete this booking?')) return;
-
-            try {
-                const result = await API.deleteBooking(id);
-                
-                // Remove from local data
-                bookingsData = bookingsData.filter(b => b.id !== id);
-                filteredData = filteredData.filter(b => b.id !== id);
-                
-                applyFilters();
-                showToast('✅ Booking deleted successfully!', 'success');
-            } catch (error) {
-                showToast('❌ Failed to delete booking.', 'danger');
-                console.error(error);
-            }
-        }
-
-        // ============================================================
-        // 📤 EXPORT CSV
-        // ============================================================
-
-        async function exportCSV() {
-            try {
-                showToast('Generating CSV...', 'info');
-                
-                const filters = {
-                    search: document.getElementById('searchInput').value,
-                    status: document.getElementById('statusFilter').value,
-                    dateFrom: document.getElementById('dateFrom').value,
-                    dateTo: document.getElementById('dateTo').value
+                // Update stats
+                const stats = {
+                    total: filteredData.length,
+                    active: filteredData.filter(c => c.status === 'active').length,
+                    inactive: filteredData.filter(c => c.status === 'inactive').length
                 };
+                renderStats(stats);
 
-                const csv = await API.exportBookings(filters);
+                // Update detail modal
+                document.getElementById('detailStatus').value = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
+                document.getElementById('statusToggleText').textContent = newStatus === 'active' ? 'Deactivate' : 'Activate';
+
+                // Refresh table
+                renderCustomers(filteredData);
                 
-                // Create download link
-                const blob = new Blob([csv], { type: 'text/csv' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `bookings_${new Date().toISOString().split('T')[0]}.csv`;
-                a.click();
-                URL.revokeObjectURL(url);
-                
-                showToast('📊 CSV exported successfully!', 'success');
+                showToast(`✅ Customer ${newStatus === 'active' ? 'activated' : 'deactivated'} successfully!`, 'success');
             } catch (error) {
-                showToast('❌ Failed to export CSV.', 'danger');
+                showToast('❌ Failed to update customer status.', 'danger');
                 console.error(error);
             }
         }
@@ -959,25 +967,33 @@
         // 🔄 REFRESH FUNCTION
         // ============================================================
 
-        async function refreshBookings() {
+        async function refreshCustomers() {
             try {
-                const refreshBtn = document.querySelector('[onclick="refreshBookings()"]');
+                const refreshBtn = document.querySelector('[onclick="refreshCustomers()"]');
                 if (refreshBtn) {
                     refreshBtn.disabled = true;
                     refreshBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Loading...';
                 }
 
-                bookingsData = await API.getBookings();
-                filteredData = [...bookingsData];
+                customersData = await API.getCustomers();
+                filteredData = [...customersData];
+                
+                // Calculate stats
+                const stats = {
+                    total: customersData.length,
+                    active: customersData.filter(c => c.status === 'active').length,
+                    inactive: customersData.filter(c => c.status === 'inactive').length
+                };
+                renderStats(stats);
+                
                 currentPage = 1;
-                renderBookings(filteredData);
-
-                showToast('📊 Bookings refreshed!', 'success');
+                renderCustomers(filteredData);
+                showToast('📊 Customers refreshed!', 'success');
             } catch (error) {
-                showToast('❌ Failed to load bookings.', 'danger');
+                showToast('❌ Failed to load customers.', 'danger');
                 console.error(error);
             } finally {
-                const refreshBtn = document.querySelector('[onclick="refreshBookings()"]');
+                const refreshBtn = document.querySelector('[onclick="refreshCustomers()"]');
                 if (refreshBtn) {
                     refreshBtn.disabled = false;
                     refreshBtn.innerHTML = '<i class="bi bi-arrow-clockwise me-1"></i>Refresh';
@@ -1002,7 +1018,7 @@
         });
 
         // ====== INIT PAGE ======
-        async function initBookings() {
+        async function initCustomers() {
             // Check if user is admin
             const user = getUser();
             if (!user || user.role !== 'admin') {
@@ -1011,31 +1027,28 @@
                 return;
             }
 
-            await refreshBookings();
+            await refreshCustomers();
 
-            console.log('✅ Bookings page initialized successfully!');
-            console.log('📊 Total bookings:', bookingsData.length);
+            console.log('✅ Customers page initialized successfully!');
+            console.log('📊 Total customers:', customersData.length);
             console.log('🔌 To connect to database, replace the API functions above.');
             console.log('📍 API base URL:', API_CONFIG.baseURL);
         }
 
         // Initialize when DOM is ready
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initBookings);
+            document.addEventListener('DOMContentLoaded', initCustomers);
         } else {
-            initBookings();
+            initCustomers();
         }
 
         // Make functions globally available
-        window.refreshBookings = refreshBookings;
+        window.refreshCustomers = refreshCustomers;
         window.applyFilters = applyFilters;
         window.clearFilters = clearFilters;
         window.goToPage = goToPage;
-        window.openEditModal = openEditModal;
-        window.saveBooking = saveBooking;
-        window.updateStatus = updateStatus;
-        window.deleteBooking = deleteBooking;
-        window.exportCSV = exportCSV;
+        window.viewCustomer = viewCustomer;
+        window.toggleCustomerStatus = toggleCustomerStatus;
         window.API = API;
         window.API_CONFIG = API_CONFIG;
 
@@ -1049,22 +1062,19 @@
          * 2. Replace each API function with actual fetch calls
          * 3. Expected response formats:
          * 
-         *    GET /bookings:
-         *    [{ id, customer, service, date, time, vehicle, status, amount }, ...]
+         *    GET /customers:
+         *    [{ id, name, email, phone, bookings, totalSpent, status, joined }, ...]
          * 
-         *    PUT /bookings/{id}:
-         *    Request: { service, date, time, vehicle, status, amount }
-         *    Response: { success: true, message: 'Updated' }
+         *    PUT /customers/{id}/status:
+         *    Request: { status: 'active' | 'inactive' }
+         *    Response: { success: true, message: 'Updated', newStatus: 'active' }
          * 
-         *    DELETE /bookings/{id}:
-         *    Response: { success: true, message: 'Deleted' }
-         * 
-         *    POST /bookings/export:
-         *    Request: { search, status, dateFrom, dateTo }
-         *    Response: CSV string
+         *    GET /customers/{id}/bookings:
+         *    [{ service, date, status, amount }, ...]
          * 
          * 4. All endpoints require authentication (JWT token)
          * 5. CORS must be enabled on the backend
+         * 6. 'status' field should be either 'active' or 'inactive'
          */
         console.log('📝 Backend integration notes printed to console.');
     </script>
