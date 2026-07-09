@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile · KKK Kar Wash</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- custom.css (shared theme) -->
+    <link rel="stylesheet" href="css/custom.css" />
+
+    <style>
+        /* ---- profile page specific styles (consistent with index) ---- */
+        body {
+            background: #0b1219;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 28px;
+            padding: 2rem 2rem 2.5rem;
+            transition: 0.25s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .profile-avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #1a2a3a, #0e1a26);
+            border: 2px solid rgba(56, 189, 248, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #7dd3fc;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.05);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-name {
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+
+        .profile-email {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.95rem;
+            margin-top: -0.1rem;
+        }
+
+        .profile-badge {
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 40px;
+            padding: 0.3rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #7dd3fc;
+            display: inline-block;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 18px;
+            padding: 1.2rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            text-align: center;
+            transition: 0.2s;
+        }
+        .stat-box:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(56, 189, 248, 0.08);
+        }
+        .stat-box .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .stat-box .stat-label {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .section-title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem;
+        }
+        .section-title i {
+            color: #38bdf8;
+            margin-right: 0.6rem;
+        }
+
+        .booking-item {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 18px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid #38bdf8;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.15s;
+        }
+        .booking-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .booking-item .service-name {
+            color: #fff;
+            font-weight: 600;
+        }
+        .booking-item .service-date {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+        }
+        .booking-item .status-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.9rem;
+            border-radius: 40px;
+            background: rgba(56, 189, 248, 0.1);
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.08);
+        }
+        .status-badge.completed {
+            background: rgba(46, 213, 115, 0.08);
+            color: #6bdf8a;
+            border-color: rgba(46, 213, 115, 0.1);
+        }
+        .status-badge.cancelled {
+            background: rgba(255, 107, 107, 0.06);
+            color: #ff6b6b;
+            border-color: rgba(255, 107, 107, 0.08);
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+        .setting-item:last-child {
+            border-bottom: 0;
+        }
+        .setting-item .setting-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+        .setting-item .setting-value {
+            color: #fff;
+            font-weight: 500;
+        }
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.4);
+            border-radius: 40px;
+            padding: 0.35rem 1.3rem;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .btn-primary-glow {
+            background: linear-gradient(145deg, #1a8aaa, #0f5e7a);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            transition: 0.2s;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.05);
+        }
+        .btn-primary-glow:hover {
+            background: linear-gradient(145deg, #249ec0, #14708f);
+            color: #fff;
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.1);
+        }
+
+        /* responsive adjustments */
+        @media (max-width: 576px) {
+            .profile-card { padding: 1.5rem; }
+            .booking-item { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== PARTICLES BACKGROUND ====== -->
+    <canvas id="particles-canvas"></canvas>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="main-content">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar navbar-expand-lg navbar-glass py-2 sticky-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <i class="bi bi-droplet me-2"></i>KKK<span style="font-weight:300;">Kar</span> Wash
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door"></i>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html"><i class="bi bi-grid"></i>Services</a></li>
+                        <!-- dynamic auth links (hidden by default, shown via JS if needed) -->
+                        <li class="nav-item d-none" id="navLogin"><a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right"></i>Login</a></li>
+                        <li class="nav-item d-none" id="navRegister"><a class="nav-link" href="register.html"><i class="bi bi-person-plus"></i>Register</a></li>
+                        <li class="nav-item d-none" id="navBookings"><a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
+                        <li class="nav-item" id="navProfile"><a class="nav-link active" href="profile.html"><i class="bi bi-person"></i>Profile</a></li>
+                        <li class="nav-item d-none" id="navAdmin"><a class="nav-link" href="admin/dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                        <li class="nav-item" id="navLogout"><a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                        <li class="nav-item ms-2" id="userBadge"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ====== PROFILE CONTENT ====== -->
+        <main class="container py-4">
+
+            <div class="row g-4">
+                <!-- left column: profile card + stats -->
+                <div class="col-lg-4">
+                    <div class="profile-card">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <div class="profile-avatar">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <div class="profile-name" id="profileDisplayName">Alex Rivera</div>
+                            <div class="profile-email" id="profileDisplayEmail">alex.r@example.com</div>
+                            <span class="profile-badge mt-2"><i class="bi bi-patch-check-fill me-1" style="color:#38bdf8;"></i>Premium member</span>
+                            <div class="d-flex gap-2 mt-3">
+                                <button class="btn-ghost" id="editProfileBtn"><i class="bi bi-pencil me-1"></i>Edit</button>
+                                <button class="btn-ghost" id="changePasswordBtn"><i class="bi bi-key me-1"></i>Password</button>
+                            </div>
+                        </div>
+
+                        <!-- stats row -->
+                        <div class="row g-2 mt-4">
+                            <div class="col-4">
+                                <div class="stat-box">
+                                    <div class="stat-number">12</div>
+                                    <div class="stat-label">Washes</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-box">
+                                    <div class="stat-number">4.9</div>
+                                    <div class="stat-label">Rating</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-box">
+                                    <div class="stat-number">3</div>
+                                    <div class="stat-label">Upcoming</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- quick info -->
+                        <div class="mt-4" style="border-top:1px solid rgba(255,255,255,0.03); padding-top:1rem;">
+                            <div class="d-flex justify-content-between">
+                                <span style="color:rgba(255,255,255,0.3);">Member since</span>
+                                <span style="color:rgba(255,255,255,0.6);">Jan 2025</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1">
+                                <span style="color:rgba(255,255,255,0.3);">Preferred</span>
+                                <span style="color:rgba(255,255,255,0.6);">Deluxe Wash</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1">
+                                <span style="color:rgba(255,255,255,0.3);">Payment</span>
+                                <span style="color:rgba(255,255,255,0.6);">•••• 4242</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- right column: bookings & settings -->
+                <div class="col-lg-8">
+                    <!-- recent bookings -->
+                    <div class="profile-card" style="margin-bottom: 1.5rem;">
+                        <div class="section-title">
+                            <i class="bi bi-calendar-check"></i>Recent bookings
+                        </div>
+                        <div id="bookingList">
+                            <!-- booking items (static demo) -->
+                            <div class="booking-item">
+                                <div>
+                                    <div class="service-name">Deluxe Wash</div>
+                                    <div class="service-date"><i class="bi bi-clock me-1"></i>Today, 10:30 AM</div>
+                                </div>
+                                <div>
+                                    <span class="status-badge"><i class="bi bi-hourglass-split me-1"></i>Confirmed</span>
+                                </div>
+                            </div>
+                            <div class="booking-item">
+                                <div>
+                                    <div class="service-name">Premium Wash</div>
+                                    <div class="service-date"><i class="bi bi-clock me-1"></i>Yesterday, 4:00 PM</div>
+                                </div>
+                                <div>
+                                    <span class="status-badge completed"><i class="bi bi-check-circle me-1"></i>Completed</span>
+                                </div>
+                            </div>
+                            <div class="booking-item">
+                                <div>
+                                    <div class="service-name">Basic Wash</div>
+                                    <div class="service-date"><i class="bi bi-clock me-1"></i>Apr 12, 9:15 AM</div>
+                                </div>
+                                <div>
+                                    <span class="status-badge cancelled"><i class="bi bi-x-circle me-1"></i>Cancelled</span>
+                                </div>
+                            </div>
+                            <div class="booking-item">
+                                <div>
+                                    <div class="service-name">Deluxe Wash</div>
+                                    <div class="service-date"><i class="bi bi-clock me-1"></i>Apr 10, 2:45 PM</div>
+                                </div>
+                                <div>
+                                    <span class="status-badge completed"><i class="bi bi-check-circle me-1"></i>Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-end">
+                            <a href="bookings.html" class="btn-ghost" style="font-size:0.85rem;">View all <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- account settings -->
+                    <div class="profile-card">
+                        <div class="section-title">
+                            <i class="bi bi-sliders2"></i>Account settings
+                        </div>
+                        <div class="setting-item">
+                            <span class="setting-label"><i class="bi bi-envelope me-2" style="color:rgba(255,255,255,0.2);"></i>Email</span>
+                            <span class="setting-value" id="settingsEmail">alex.r@example.com</span>
+                        </div>
+                        <div class="setting-item">
+                            <span class="setting-label"><i class="bi bi-phone me-2" style="color:rgba(255,255,255,0.2);"></i>Phone</span>
+                            <span class="setting-value">+230 5 123 4567</span>
+                        </div>
+                        <div class="setting-item">
+                            <span class="setting-label"><i class="bi bi-car-front me-2" style="color:rgba(255,255,255,0.2);"></i>Vehicle</span>
+                            <span class="setting-value">Tesla Model 3 (Blue)</span>
+                        </div>
+                        <div class="setting-item">
+                            <span class="setting-label"><i class="bi bi-bell me-2" style="color:rgba(255,255,255,0.2);"></i>Notifications</span>
+                            <span class="setting-value"><i class="bi bi-check-circle-fill" style="color:#38bdf8;"></i> Enabled</span>
+                        </div>
+                        <div class="d-flex gap-2 mt-3 pt-2" style="border-top:1px solid rgba(255,255,255,0.03);">
+                            <button class="btn-primary-glow" id="saveSettingsBtn"><i class="bi bi-check2 me-1"></i>Save changes</button>
+                            <button class="btn-ghost" id="resetSettingsBtn"><i class="bi bi-arrow-counterclockwise me-1"></i>Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- bottom hint (consistent with index style) -->
+            <div class="mt-4 stat-card p-3" style="border-radius: 20px; text-align:center; background:rgba(255,255,255,0.01);">
+                <p style="color:rgba(255,255,255,0.2); font-size:0.9rem; margin:0;">
+                    <i class="bi bi-shield-check me-2" style="color:#38bdf8;"></i>
+                    Your data is encrypted and secure. We never share your information.
+                </p>
+            </div>
+        </main>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-light py-4 mt-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:700;font-size:1.1rem;">
+                            <i class="bi bi-droplet me-2" style="color:#38bdf8;"></i>KKK Kar Wash
+                        </h5>
+                        <p style="max-width:350px; color:rgba(255,255,255,0.3);">Premium car care, reimagined for the digital age. Book your wash in seconds.</p>
+                        <div class="social-icons mt-2">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="footer-heading" style="color:rgba(255,255,255,0.4);">Information</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="about.html"><i class="bi bi-info-circle me-2"></i>About Us</a>
+                                    <a href="contact.html"><i class="bi bi-envelope me-2"></i>Contact</a>
+                                    <a href="#"><i class="bi bi-shield me-2"></i>Privacy</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="#"><i class="bi bi-file-text me-2"></i>Terms</a>
+                                    <a href="#"><i class="bi bi-question-circle me-2"></i>FAQ</a>
+                                    <a href="#"><i class="bi bi-bug me-2"></i>Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.04);">
+                    <p class="mb-0" style="color:rgba(255,255,255,0.2);font-size:0.85rem;">
+                        <i class="bi bi-droplet-half me-2" style="color:rgba(56,189,248,0.3);"></i>
+                        &copy; 2026 KKK Kar Wash. All rights reserved. | Made with <i class="bi bi-heart-fill" style="color:#e74c3c;font-size:0.7rem;"></i> in Mauritius
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/common.js"></script>
+
+    <script>
+        (function() {
+            // ----- simple profile demo logic (matching your index theme) -----
+            const displayName = document.getElementById('profileDisplayName');
+            const displayEmail = document.getElementById('profileDisplayEmail');
+            const settingsEmail = document.getElementById('settingsEmail');
+
+            // try to load from localStorage (if you have user data)
+            const userData = localStorage.getItem('user');
+            if (userData) {
+                try {
+                    const user = JSON.parse(userData);
+                    if (user.name) {
+                        displayName.textContent = user.name;
+                    }
+                    if (user.email) {
+                        displayEmail.textContent = user.email;
+                        settingsEmail.textContent = user.email;
+                    }
+                } catch (e) {}
+            }
+
+            // logout
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (typeof logout === 'function') {
+                        logout();
+                    } else {
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('token');
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+
+            // interactive buttons (demo toasts / alerts)
+            document.getElementById('editProfileBtn')?.addEventListener('click', function() {
+                alert('✏️ Edit profile modal would open here (integrate with your backend).');
+            });
+            document.getElementById('changePasswordBtn')?.addEventListener('click', function() {
+                alert('🔑 Change password flow (secure).');
+            });
+            document.getElementById('saveSettingsBtn')?.addEventListener('click', function() {
+                alert('✅ Settings saved (simulated).');
+            });
+            document.getElementById('resetSettingsBtn')?.addEventListener('click', function() {
+                alert('🔄 Settings reset to default (simulated).');
+            });
+
+            console.log('✅ Profile page loaded with dark theme & particles');
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KKK Kar Wash · Premium Car Care</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    
+    <!-- ====== CUSTOM CSS ====== -->
+    <link rel="stylesheet" href="css/custom.css"/>
+
+    <style>
+        /* Additional page-specific styles - DARK THEME */
+        .about-preview-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 2rem;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            height: 100%;
+            color: #fff;
+        }
+        .about-preview-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(56, 189, 248, 0.15);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+        }
+        .about-preview-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(6, 182, 212, 0.05));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #7dd3fc;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(56, 189, 248, 0.06);
+        }
+        .about-preview-card h4 {
+            color: #fff;
+            font-weight: 700;
+        }
+        .about-preview-card p {
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.7;
+        }
+
+        .btn-outline-small {
+            background: transparent;
+            border: 1.5px solid rgba(56, 189, 248, 0.2);
+            color: #7dd3fc;
+            font-weight: 500;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-outline-small:hover {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: #38bdf8;
+            color: #fff;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.5rem;
+            height: 100%;
+            transition: 0.3s;
+            color: #fff;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(56, 189, 248, 0.1);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+        .testimonial-card p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .testimonial-card h6 {
+            color: #fff;
+            font-weight: 600;
+            margin: 0;
+        }
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a5f7a, #38bdf8);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .star-rating {
+            color: #f5a623;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        /* Footer dark theme */
+        .footer-light {
+            background: rgba(10, 15, 26, 0.6) !important;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .footer-light h5 {
+            color: #fff !important;
+        }
+        .footer-light p {
+            color: rgba(255, 255, 255, 0.3) !important;
+        }
+        .footer-light .footer-heading {
+            color: rgba(255, 255, 255, 0.6) !important;
+        }
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.9rem;
+            padding: 4px 0;
+            display: inline-block;
+        }
+        .footer-links a:hover {
+            color: #7dd3fc;
+        }
+        .social-icons a {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.3rem;
+            transition: 0.3s;
+            margin: 0 8px 0 0;
+            display: inline-block;
+        }
+        .social-icons a:hover {
+            color: #7dd3fc;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .about-preview-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== PARTICLES BACKGROUND ====== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ====== GLOW ORBS ====== -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div class="main-content">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar navbar-expand-lg navbar-glass py-2 sticky-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <i class="bi bi-droplet me-2"></i>KKK<span style="font-weight:300;">Kar</span> Wash
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+                        <li class="nav-item"><a class="nav-link active" href="index.html"><i class="bi bi-house-door"></i>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html"><i class="bi bi-grid"></i>Services</a></li>
+                        <li class="nav-item" id="navLogin"><a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right"></i>Login</a></li>
+                        <li class="nav-item" id="navRegister"><a class="nav-link" href="register.html"><i class="bi bi-person-plus"></i>Register</a></li>
+                        <li class="nav-item d-none" id="navBookings"><a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
+                        <li class="nav-item d-none" id="navProfile"><a class="nav-link" href="profile.html"><i class="bi bi-person"></i>Profile</a></li>
+                        <li class="nav-item d-none" id="navAdmin"><a class="nav-link" href="admin/dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                        <li class="nav-item d-none" id="navLogout"><a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                        <li class="nav-item ms-2" id="userBadge"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ====== HERO SECTION ====== -->
+        <main class="container py-4">
+            <div class="hero-card p-4 p-md-5 mb-5">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-7">
+                        <div class="d-flex gap-3 mb-3 flex-wrap">
+                            <span class="badge-soft"><i class="bi bi-star-fill me-1" style="color:#f5a623;"></i> 4.9 ★</span>
+                            <span class="badge-soft"><i class="bi bi-clock me-1"></i> 15 min avg</span>
+                            <span class="badge-soft"><i class="bi bi-shield-check me-1"></i> 100% secure</span>
+                        </div>
+                        <h1 class="hero-title">
+                            Premium car wash, <br>
+                            <span class="highlight">just a click away.</span>
+                        </h1>
+                        <p class="hero-sub mt-3">Book your Basic, Premium or Deluxe wash in seconds. Real-time availability, digital payments & professional care.</p>
+                        <div class="d-flex flex-wrap gap-3 mt-4">
+                            <a href="services.html" class="btn btn-primary-glow"><i class="bi bi-calendar-plus me-2"></i>Book now</a>
+                            <a href="login.html" class="btn btn-outline-glow"><i class="bi bi-box-arrow-in-right me-2"></i>Sign in</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 text-center">
+                        <div style="position:relative;display:inline-block;">
+                            <div style="position:absolute;inset:-20px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,0.06),transparent 70%);animation:orbPulse 6s ease-in-out infinite alternate;"></div>
+                            <!-- CAR WASH SVG -->
+                            <svg class="car-wash-svg" viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="carBg" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#1a8aaa" stop-opacity="0.08"/>
+                                        <stop offset="100%" stop-color="#2a9abc" stop-opacity="0.03"/>
+                                    </linearGradient>
+                                    <linearGradient id="carGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#4a9abc"/>
+                                        <stop offset="100%" stop-color="#1a7a9a"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect width="400" height="320" rx="40" fill="url(#carBg)"/>
+                                <g class="water-streams">
+                                    <path d="M120 60 L125 100 L115 100 Z" fill="#4a9abc" opacity="0.2" class="water-drop"/>
+                                    <path d="M180 40 L185 90 L175 90 Z" fill="#4a9abc" opacity="0.15" class="water-drop"/>
+                                    <path d="M240 55 L245 95 L235 95 Z" fill="#4a9abc" opacity="0.25" class="water-drop"/>
+                                    <path d="M300 45 L305 85 L295 85 Z" fill="#4a9abc" opacity="0.12" class="water-drop"/>
+                                    <path d="M140 75 L145 110 L135 110 Z" fill="#4a9abc" opacity="0.1" class="water-drop"/>
+                                </g>
+                                <g class="bubbles">
+                                    <circle cx="280" cy="80" r="8" fill="rgba(26,138,170,0.08)" stroke="rgba(26,138,170,0.12)" stroke-width="1" class="bubble"/>
+                                    <circle cx="310" cy="65" r="5" fill="rgba(26,138,170,0.06)" stroke="rgba(26,138,170,0.08)" stroke-width="1" class="bubble"/>
+                                    <circle cx="260" cy="70" r="6" fill="rgba(26,138,170,0.07)" stroke="rgba(26,138,170,0.1)" stroke-width="1" class="bubble"/>
+                                    <circle cx="100" cy="95" r="7" fill="rgba(26,138,170,0.06)" stroke="rgba(26,138,170,0.08)" stroke-width="1" class="bubble"/>
+                                </g>
+                                <g class="car-body">
+                                    <ellipse cx="200" cy="240" rx="120" ry="15" fill="rgba(0,0,0,0.04)"/>
+                                    <rect x="100" y="160" width="200" height="60" rx="10" fill="url(#carGrad)" opacity="0.85"/>
+                                    <rect x="110" y="150" width="140" height="20" rx="8" fill="#4a9abc" opacity="0.5"/>
+                                    <rect x="120" y="145" width="100" height="10" rx="5" fill="#7ac0d0" opacity="0.3"/>
+                                    <path d="M120 160 L140 130 L220 130 L240 160 Z" fill="#1a5c72" opacity="0.5"/>
+                                    <path d="M135 148 L145 133 L160 133 L160 148 Z" fill="rgba(26,138,170,0.2)"/>
+                                    <path d="M200 148 L200 133 L215 133 L225 148 Z" fill="rgba(26,138,170,0.15)"/>
+                                    <rect x="170" y="138" width="20" height="15" rx="3" fill="rgba(26,138,170,0.15)"/>
+                                    <circle cx="105" cy="180" r="6" fill="#f5a623" opacity="0.7"/>
+                                    <circle cx="295" cy="180" r="6" fill="#f5a623" opacity="0.5"/>
+                                    <rect x="95" y="185" width="15" height="25" rx="5" fill="#0a3a4a" opacity="0.3"/>
+                                    <rect x="290" y="185" width="15" height="25" rx="5" fill="#0a3a4a" opacity="0.3"/>
+                                    <circle cx="140" cy="220" r="25" fill="#0a3a4a" opacity="0.6"/>
+                                    <circle cx="140" cy="220" r="16" fill="#1a5c72" opacity="0.5"/>
+                                    <circle cx="140" cy="220" r="8" fill="#0a3a4a" opacity="0.4"/>
+                                    <circle cx="260" cy="220" r="25" fill="#0a3a4a" opacity="0.6"/>
+                                    <circle cx="260" cy="220" r="16" fill="#1a5c72" opacity="0.5"/>
+                                    <circle cx="260" cy="220" r="8" fill="#0a3a4a" opacity="0.4"/>
+                                </g>
+                                <g opacity="0.12">
+                                    <path d="M120 240 Q130 250 140 240 Q150 255 160 240" stroke="#4a9abc" stroke-width="2" fill="none"/>
+                                    <path d="M220 240 Q230 252 240 240 Q250 248 260 240" stroke="#4a9abc" stroke-width="2" fill="none"/>
+                                </g>
+                                <path d="M120 160 L180 160 L170 190 L130 190 Z" fill="rgba(255,255,255,0.04)" transform="rotate(-10, 150, 175)"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== FEATURES SECTION ====== -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="stat-card text-center h-100">
+                        <div style="font-size:2.6rem;color:#38bdf8;margin-bottom:0.8rem;"><i class="bi bi-clock-history"></i></div>
+                        <h5 style="color:#fff;font-weight:600;">Real-time slots</h5>
+                        <p style="color:rgba(255,255,255,0.4);font-size:0.9rem;">See available times instantly.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card text-center h-100">
+                        <div style="font-size:2.6rem;color:#38bdf8;margin-bottom:0.8rem;"><i class="bi bi-shield-lock"></i></div>
+                        <h5 style="color:#fff;font-weight:600;">Secure payments</h5>
+                        <p style="color:rgba(255,255,255,0.4);font-size:0.9rem;">Simulated card or cash on delivery.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card text-center h-100">
+                        <div style="font-size:2.6rem;color:#38bdf8;margin-bottom:0.8rem;"><i class="bi bi-graph-up-arrow"></i></div>
+                        <h5 style="color:#fff;font-weight:600;">Admin insights</h5>
+                        <p style="color:rgba(255,255,255,0.4);font-size:0.9rem;">Revenue, bookings & service analytics.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== ABOUT PREVIEW SECTION ====== -->
+            <div class="row g-4 mb-5">
+                <div class="col-lg-6">
+                    <div class="about-preview-card">
+                        <div class="about-preview-icon"><i class="bi bi-info-circle"></i></div>
+                        <h4>About KKK Kar Wash</h4>
+                        <p>We're on a mission to transform the car wash experience through technology, convenience, and a genuine commitment to quality. Founded in 2024, we've already helped over 500 customers enjoy a seamless car care experience.</p>
+                        <a href="about.html" class="btn-outline-small"><i class="bi bi-arrow-right me-1"></i>Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-preview-card">
+                        <div class="about-preview-icon"><i class="bi bi-envelope"></i></div>
+                        <h4>Get in Touch</h4>
+                        <p>Have questions about our services? Need help with a booking? We're here to help! Our team is available Monday through Saturday to assist you with any inquiries.</p>
+                        <a href="contact.html" class="btn-outline-small"><i class="bi bi-arrow-right me-1"></i>Contact Us</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== TESTIMONIALS SECTION ====== -->
+            <h3 style="color:#fff;font-weight:700;text-align:center;margin-bottom:2rem;">
+                <i class="bi bi-chat-quote me-2" style="color:#38bdf8;"></i>What Our Customers Say
+            </h3>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="testimonial-avatar"><i class="bi bi-person"></i></div>
+                            <div>
+                                <h6>John Doe</h6>
+                                <div class="star-rating">★★★★★</div>
+                            </div>
+                        </div>
+                        <p>"Absolutely love the convenience! Booked a Premium Wash in under a minute and my car looked brand new. Highly recommend!"</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="testimonial-avatar"><i class="bi bi-person"></i></div>
+                            <div>
+                                <h6>Sarah Williams</h6>
+                                <div class="star-rating">★★★★★</div>
+                            </div>
+                        </div>
+                        <p>"Finally a car wash that respects my time! The online booking system is smooth and the service quality is outstanding."</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="testimonial-avatar"><i class="bi bi-person"></i></div>
+                            <div>
+                                <h6>Michael Chen</h6>
+                                <div class="star-rating">★★★★★</div>
+                            </div>
+                        </div>
+                        <p>"The Deluxe Wash is worth every penny! My car has never looked this good. The team is professional and the online system works flawlessly."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ====== WHY US SECTION ====== -->
+            <div class="mt-5 stat-card p-4">
+                <h5 style="color:#fff;font-weight:600;"><i class="bi bi-star-fill text-warning me-2"></i>Why KKKar Wash?</h5>
+                <p style="color:rgba(255,255,255,0.5);">No more double bookings, forgotten appointments or cash chaos. Our system handles everything – from booking to payment, with full history and admin control.</p>
+            </div>
+        </main>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-light py-4 mt-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:700;font-size:1.1rem;">
+                            <i class="bi bi-droplet me-2" style="color:#38bdf8;"></i>KKK Kar Wash
+                        </h5>
+                        <p style="max-width:350px;">Premium car care, reimagined for the digital age. Book your wash in seconds. No more double bookings, forgotten appointments or cash chaos.</p>
+                        <div class="social-icons mt-2">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="footer-heading">Information</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="about.html"><i class="bi bi-info-circle me-2"></i>About Us</a>
+                                    <a href="contact.html"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+                                    <a href="privacy.html"><i class="bi bi-shield me-2"></i>Privacy Policy</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="terms.html"><i class="bi bi-file-text me-2"></i>Terms of Service</a>
+                                    <a href="faq.html"><i class="bi bi-question-circle me-2"></i>FAQ</a>
+                                    <a href="contact.html"><i class="bi bi-bug me-2"></i>Report Issue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.04);">
+                    <p class="mb-0" style="color:rgba(255,255,255,0.2);font-size:0.85rem;">
+                        <i class="bi bi-droplet-half me-2" style="color:rgba(56,189,248,0.3);"></i>
+                        &copy; 2026 KKK Kar Wash. All rights reserved. | Made with <i class="bi bi-heart-fill" style="color:#e74c3c;font-size:0.7rem;"></i> in Mauritius
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ====== PARTICLES ANIMATION ====== -->
+    <script src="js/particles.js"></script>
+    
+    <!-- ====== COMMON JAVASCRIPT ====== -->
+    <script src="js/common.js"></script>
+
+    <!-- ====== PAGE-SPECIFIC SCRIPTS ====== -->
+    <script>
+        // ====== NAVBAR SCROLL EFFECT ======
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            if (nav) {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
+
+        // ====== LOGOUT ======
+        document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof logout === 'function') {
+                logout();
+            } else {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // ====== CHECK FOR COMMON.JS LOAD ======
+        if (typeof updateNav === 'undefined') {
+            console.warn('common.js not loaded. Using fallback navigation.');
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                document.querySelectorAll('#navLogin, #navRegister').forEach(el => {
+                    if (el) el.classList.add('d-none');
+                });
+                const badge = document.getElementById('userBadge');
+                if (badge) {
+                    badge.innerHTML = `<span class="badge px-3 py-2" style="background:rgba(56,189,248,0.12);color:#7dd3fc;border-radius:40px;border:1px solid rgba(56,189,248,0.08);"><i class="bi bi-person-circle me-1"></i> ${user.name}</span>`;
+                    badge.classList.remove('d-none');
+                }
+            }
+        }
+
+        console.log('✅ Index page loaded successfully');
+    </script>
+</body>
+</html>

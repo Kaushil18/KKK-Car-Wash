@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>About Us · KKK Kar Wash</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    
+    <!-- ====== CUSTOM CSS ====== -->
+    <link rel="stylesheet" href="css/custom.css"/>
+
+    <style>
+        /* About page specific styles */
+        .about-hero {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            border-radius: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(56, 189, 248, 0.05), transparent 60%);
+            pointer-events: none;
+        }
+
+        .about-hero .badge-soft {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.1;
+        }
+        .about-hero h1 .highlight {
+            background: linear-gradient(135deg, #7dd3fc, #38bdf8, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .about-hero p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 1rem auto 0;
+            line-height: 1.7;
+        }
+
+        /* Story section */
+        .story-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .story-section .story-text {
+            flex: 2;
+            min-width: 280px;
+        }
+        .story-section .story-text h3 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .story-section .story-text p {
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .story-section .story-stats {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .story-section .story-stats .stat-item {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.5rem;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .story-section .story-stats .stat-item:hover {
+            border-color: rgba(56, 189, 248, 0.15);
+            transform: translateY(-3px);
+        }
+        .story-section .story-stats .stat-item .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7dd3fc, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .story-section .story-stats .stat-item .label {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        /* Mission & Vision */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .mission-vision .mv-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2rem;
+            transition: 0.3s;
+        }
+        .mission-vision .mv-card:hover {
+            border-color: rgba(56, 189, 248, 0.12);
+            transform: translateY(-4px);
+        }
+        .mission-vision .mv-card .icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(6, 182, 212, 0.04));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #7dd3fc;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(56, 189, 248, 0.06);
+        }
+        .mission-vision .mv-card h4 {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        .mission-vision .mv-card p {
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin: 0.5rem 0 0;
+        }
+
+        /* Values */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .values-grid .value-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .values-grid .value-card:hover {
+            border-color: rgba(56, 189, 248, 0.12);
+            transform: translateY(-4px);
+        }
+        .values-grid .value-card .icon {
+            font-size: 2.2rem;
+            color: #7dd3fc;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+        .values-grid .value-card h5 {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0;
+        }
+        .values-grid .value-card p {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+            margin: 0.3rem 0 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(56, 189, 248, 0.3), rgba(56, 189, 248, 0.05));
+        }
+        .timeline-item {
+            position: relative;
+            padding: 1rem 0 1rem 2rem;
+            border-left: 2px solid transparent;
+            transition: 0.3s;
+        }
+        .timeline-item:hover {
+            border-left-color: rgba(56, 189, 248, 0.2);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.4rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #06b6d4);
+            border: 2px solid #0a0f1a;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+        }
+        .timeline-item .year {
+            color: #7dd3fc;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .timeline-item h5 {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0.2rem 0;
+        }
+        .timeline-item p {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .team-grid .team-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .team-grid .team-card:hover {
+            border-color: rgba(56, 189, 248, 0.12);
+            transform: translateY(-4px);
+        }
+        .team-grid .team-card .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a5f7a, #38bdf8);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 0.8rem;
+        }
+        .team-grid .team-card h5 {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0;
+        }
+        .team-grid .team-card .role {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+            margin: 0.2rem 0 0.5rem;
+        }
+        .team-grid .team-card .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+        .team-grid .team-card .social-links a {
+            color: rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+            font-size: 1.1rem;
+        }
+        .team-grid .team-card .social-links a:hover {
+            color: #7dd3fc;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .cta-section h3 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.6rem;
+        }
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.4);
+            max-width: 500px;
+            margin: 0.5rem auto 1.5rem;
+            line-height: 1.7;
+        }
+        .cta-section .btn-cta {
+            padding: 0.75rem 2.5rem;
+            font-weight: 600;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #0b2b40, #1a5f7a);
+            border: none;
+            color: #fff;
+            transition: 0.3s;
+            box-shadow: 0 8px 32px rgba(26, 95, 122, 0.25);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-section .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 48px rgba(26, 95, 122, 0.4);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 1.5rem;
+                border-radius: 28px;
+            }
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+            .story-section {
+                flex-direction: column;
+            }
+            .timeline {
+                padding-left: 1.5rem;
+            }
+            .timeline-item::before {
+                left: -1.9rem;
+            }
+            .values-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .team-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== PARTICLES BACKGROUND ====== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ====== GLOW ORBS ====== -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div class="main-content">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar navbar-expand-lg navbar-glass py-2 sticky-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <i class="bi bi-droplet me-2"></i>KKK<span style="font-weight:300;">Kar</span> Wash
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door"></i>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html"><i class="bi bi-grid"></i>Services</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="about.html"><i class="bi bi-info-circle"></i>About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-envelope"></i>Contact</a></li>
+                        <li class="nav-item" id="navLogin"><a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right"></i>Login</a></li>
+                        <li class="nav-item" id="navRegister"><a class="nav-link" href="register.html"><i class="bi bi-person-plus"></i>Register</a></li>
+                        <li class="nav-item d-none" id="navBookings"><a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
+                        <li class="nav-item d-none" id="navProfile"><a class="nav-link" href="profile.html"><i class="bi bi-person"></i>Profile</a></li>
+                        <li class="nav-item d-none" id="navAdmin"><a class="nav-link" href="admin/dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                        <li class="nav-item d-none" id="navLogout"><a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                        <li class="nav-item ms-2" id="userBadge"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ====== ABOUT CONTENT ====== -->
+        <main class="container py-4">
+
+            <!-- Hero Section -->
+            <div class="about-hero">
+                <span class="badge-soft"><i class="bi bi-droplet me-1"></i> Since 2024</span>
+                <h1>More Than Just a<br><span class="highlight">Car Wash</span></h1>
+                <p>We're on a mission to transform the car wash experience through technology, convenience, and a genuine commitment to quality.</p>
+            </div>
+
+            <!-- Story & Stats -->
+            <div class="story-section">
+                <div class="story-text">
+                    <h3>Our Story</h3>
+                    <p>
+                        KKK Kar Wash was born from a simple observation: traditional car wash booking was broken. 
+                        Long waits, double bookings, and no-show appointments frustrated both customers and business owners.
+                    </p>
+                    <p>
+                        We decided to fix it. By combining modern technology with a passion for exceptional service, 
+                        we created a platform that makes booking a car wash as easy as ordering a ride. Today, we're 
+                        proud to serve hundreds of satisfied customers with a seamless, professional experience.
+                    </p>
+                    <p>
+                        From our humble beginnings in 2024, we've grown into a trusted name in car care, 
+                        driven by our commitment to innovation and customer satisfaction.
+                    </p>
+                </div>
+                <div class="story-stats">
+                    <div class="stat-item">
+                        <div class="number">500+</div>
+                        <p class="label">Happy Customers</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">1,200+</div>
+                        <p class="label">Bookings Completed</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">4.9 ★</div>
+                        <p class="label">Average Rating</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">98%</div>
+                        <p class="label">Satisfaction Rate</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission & Vision -->
+            <div class="mission-vision">
+                <div class="mv-card">
+                    <div class="icon"><i class="bi bi-rocket"></i></div>
+                    <h4>Our Mission</h4>
+                    <p>To provide exceptional car wash services with convenience, transparency, and technology at the forefront. We aim to eliminate the frustrations of traditional car wash booking by offering a seamless online experience.</p>
+                </div>
+                <div class="mv-card">
+                    <div class="icon"><i class="bi bi-eye"></i></div>
+                    <h4>Our Vision</h4>
+                    <p>To become the leading online car wash management platform, setting the standard for efficiency, customer satisfaction, and operational excellence in the car care industry.</p>
+                </div>
+            </div>
+
+            <!-- Core Values -->
+            <h3 style="color:#fff;font-weight:700;text-align:center;margin:2rem 0 0.5rem;">
+                <i class="bi bi-heart me-2" style="color:#38bdf8;"></i>Our Core Values
+            </h3>
+            <p style="color:rgba(255,255,255,0.3);text-align:center;margin-bottom:1.5rem;">The principles that guide everything we do</p>
+            <div class="values-grid">
+                <div class="value-card">
+                    <span class="icon"><i class="bi bi-shield-check"></i></span>
+                    <h5>Trust & Integrity</h5>
+                    <p>We do what we say, and we say what we do. Honesty is at the heart of our business.</p>
+                </div>
+                <div class="value-card">
+                    <span class="icon"><i class="bi bi-star"></i></span>
+                    <h5>Quality First</h5>
+                    <p>We never compromise on the quality of our service. Every car leaves spotless.</p>
+                </div>
+                <div class="value-card">
+                    <span class="icon"><i class="bi bi-people"></i></span>
+                    <h5>Customer Focus</h5>
+                    <p>Our customers are at the heart of everything we do. Their satisfaction is our priority.</p>
+                </div>
+                <div class="value-card">
+                    <span class="icon"><i class="bi bi-lightbulb"></i></span>
+                    <h5>Innovation</h5>
+                    <p>We embrace technology to create better experiences and solve real problems.</p>
+                </div>
+                <div class="value-card">
+                    <span class="icon"><i class="bi bi-heart"></i></span>
+                    <h5>Passion</h5>
+                    <p>We genuinely care about cars and the people who drive them. It shows in our work.</p>
+                </div>
+                <div class="value-card">
+                    <span class="icon"><i class="bi bi-globe"></i></span>
+                    <h5>Sustainability</h5>
+                    <p>We're committed to eco-friendly practices and reducing our environmental impact.</p>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <h3 style="color:#fff;font-weight:700;margin:2rem 0 0.5rem;">
+                <i class="bi bi-clock-history me-2" style="color:#38bdf8;"></i>Our Journey
+            </h3>
+            <p style="color:rgba(255,255,255,0.3);margin-bottom:1.5rem;">The milestones that have shaped KKK Kar Wash</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="year">2024</div>
+                    <h5>Founded</h5>
+                    <p>KKK Kar Wash was established with a vision to revolutionize car care through technology and exceptional service.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2024</div>
+                    <h5>First 100 Bookings</h5>
+                    <p>Reached our first 100 bookings milestone, validating our approach and building a loyal customer base.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2025</div>
+                    <h5>Digital Launch</h5>
+                    <p>Launched our online booking platform, making car wash booking effortless and accessible to everyone.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2025</div>
+                    <h5>500+ Happy Customers</h5>
+                    <p>Celebrated serving over 500 customers with a 4.9★ satisfaction rating and growing reputation.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2026</div>
+                    <h5>1,000+ Bookings</h5>
+                    <p>Reached a major milestone of over 1,000 bookings, cementing our position as a trusted car care provider.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2026</div>
+                    <h5>Looking Ahead</h5>
+                    <p>Continuing to innovate and expand our services to provide even better experiences for our customers.</p>
+                </div>
+            </div>
+
+            <!-- Team -->
+            <h3 style="color:#fff;font-weight:700;text-align:center;margin:2rem 0 0.5rem;">
+                <i class="bi bi-people me-2" style="color:#38bdf8;"></i>Meet the Team
+            </h3>
+            <p style="color:rgba(255,255,255,0.3);text-align:center;margin-bottom:1.5rem;">The passionate people behind KKK Kar Wash</p>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="avatar"><i class="bi bi-person"></i></div>
+                    <h5>Kaushil Ramsahaye</h5>
+                    <p class="role">Co-Founder &amp; CEO</p>
+                    <div class="social-links">
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="avatar"><i class="bi bi-person"></i></div>
+                    <h5>Dhiveshsing Khadoo</h5>
+                    <p class="role">Co-Founder &amp; CTO</p>
+                    <div class="social-links">
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="avatar"><i class="bi bi-person"></i></div>
+                    <h5>Lolbeehary Geetali</h5>
+                    <p class="role">Head of Operations</p>
+                    <div class="social-links">
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="avatar"><i class="bi bi-person"></i></div>
+                    <h5>Seeneevassen Tâvissen</h5>
+                    <p class="role">Customer Experience Lead</p>
+                    <div class="social-links">
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h3>Ready to Experience the Difference?</h3>
+                <p>Join hundreds of satisfied customers who've made the switch to smart car care. Book your wash today and see why we're Mauritius's most trusted car wash.</p>
+                <a href="services.html" class="btn-cta"><i class="bi bi-calendar-plus me-2"></i>Book Your Wash Now</a>
+            </div>
+
+        </main>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-light py-4 mt-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:700;font-size:1.1rem;">
+                            <i class="bi bi-droplet me-2" style="color:#38bdf8;"></i>KKK Kar Wash
+                        </h5>
+                        <p style="max-width:350px;">Premium car care, reimagined for the digital age. Book your wash in seconds. No more double bookings, forgotten appointments or cash chaos.</p>
+                        <div class="social-icons mt-2">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="footer-heading">Information</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="about.html"><i class="bi bi-info-circle me-2"></i>About Us</a>
+                                    <a href="contact.html"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+                                    <a href="#"><i class="bi bi-shield me-2"></i>Privacy Policy</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="#"><i class="bi bi-file-text me-2"></i>Terms of Service</a>
+                                    <a href="#"><i class="bi bi-question-circle me-2"></i>FAQ</a>
+                                    <a href="#"><i class="bi bi-bug me-2"></i>Report Issue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.04);">
+                    <p class="mb-0" style="color:rgba(255,255,255,0.2);font-size:0.85rem;">
+                        <i class="bi bi-droplet-half me-2" style="color:rgba(56,189,248,0.3);"></i>
+                        &copy; 2026 KKK Kar Wash. All rights reserved. | Made with <i class="bi bi-heart-fill" style="color:#e74c3c;font-size:0.7rem;"></i> in Mauritius
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ====== PARTICLES ANIMATION ====== -->
+    <script src="js/particles.js"></script>
+    
+    <!-- ====== COMMON JAVASCRIPT ====== -->
+    <script src="js/common.js"></script>
+
+    <!-- ====== PAGE-SPECIFIC SCRIPTS ====== -->
+    <script>
+        // ====== LOGOUT ======
+        document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof logout === 'function') {
+                logout();
+            } else {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            }
+        });
+
+        console.log('✅ About page loaded successfully!');
+    </script>
+</body>
+</html>

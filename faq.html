@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FAQ · KKK Kar Wash</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    
+    <!-- ====== CUSTOM CSS ====== -->
+    <link rel="stylesheet" href="css/custom.css"/>
+
+    <style>
+        /* FAQ page specific styles */
+        .faq-wrapper {
+            padding: 2rem 0;
+        }
+
+        .faq-hero {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            border-radius: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+        .faq-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(56, 189, 248, 0.05), transparent 60%);
+            pointer-events: none;
+        }
+        .faq-hero .icon-wrapper {
+            width: 72px;
+            height: 72px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(6, 182, 212, 0.05));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.08);
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.05);
+            margin-bottom: 1rem;
+        }
+        .faq-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.1;
+        }
+        .faq-hero h1 .highlight {
+            background: linear-gradient(135deg, #7dd3fc, #38bdf8, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .faq-hero p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 1rem auto 0;
+            line-height: 1.7;
+        }
+
+        /* FAQ Categories */
+        .faq-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .faq-categories .category-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 40px;
+            padding: 0.5rem 1.5rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .faq-categories .category-btn:hover {
+            background: rgba(56, 189, 248, 0.06);
+            border-color: rgba(56, 189, 248, 0.15);
+            color: #7dd3fc;
+        }
+        .faq-categories .category-btn.active {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: rgba(56, 189, 248, 0.2);
+            color: #38bdf8;
+        }
+
+        /* FAQ Accordion */
+        .faq-accordion {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 1.5rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 0.5rem 0;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 12px;
+            user-select: none;
+        }
+        .faq-question:hover {
+            background: rgba(56, 189, 248, 0.03);
+        }
+        .faq-question .question-text {
+            color: #fff;
+            font-weight: 500;
+            font-size: 1rem;
+            margin: 0;
+        }
+        .faq-question .question-icon {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 1.2rem;
+            transition: 0.3s;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+        .faq-question.active .question-icon {
+            transform: rotate(180deg);
+            color: #38bdf8;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.23, 1, 0.32, 1), padding 0.3s ease;
+            padding: 0 0.5rem;
+        }
+        .faq-answer.open {
+            max-height: 500px;
+            padding: 0 0.5rem 1rem 0.5rem;
+        }
+        .faq-answer p {
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        .faq-answer ul {
+            color: rgba(255, 255, 255, 0.5);
+            padding-left: 1.2rem;
+            margin: 0.5rem 0 0;
+            line-height: 1.7;
+        }
+        .faq-answer ul li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .cta-section h3 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.6rem;
+        }
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.4);
+            max-width: 500px;
+            margin: 0.5rem auto 1.5rem;
+            line-height: 1.7;
+        }
+        .cta-section .btn-cta {
+            padding: 0.75rem 2.5rem;
+            font-weight: 600;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #0b2b40, #1a5f7a);
+            border: none;
+            color: #fff;
+            transition: 0.3s;
+            box-shadow: 0 8px 32px rgba(26, 95, 122, 0.25);
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-section .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 48px rgba(26, 95, 122, 0.4);
+            color: #fff;
+        }
+
+        /* Search */
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 1.5rem;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1.2rem 0.8rem 3rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 60px;
+            color: #fff;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .search-box input:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.05);
+            outline: none;
+        }
+        .search-box i {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .faq-hero {
+                padding: 1.5rem;
+                border-radius: 28px;
+            }
+            .faq-hero h1 {
+                font-size: 2rem;
+            }
+            .faq-accordion {
+                padding: 1rem;
+            }
+            .faq-categories {
+                gap: 0.3rem;
+            }
+            .faq-categories .category-btn {
+                padding: 0.3rem 1rem;
+                font-size: 0.75rem;
+            }
+            .cta-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== PARTICLES BACKGROUND ====== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ====== GLOW ORBS ====== -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div class="main-content">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar navbar-expand-lg navbar-glass py-2 sticky-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <i class="bi bi-droplet me-2"></i>KKK<span style="font-weight:300;">Kar</span> Wash
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door"></i>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html"><i class="bi bi-grid"></i>Services</a></li>
+                        <li class="nav-item" id="navLogin"><a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right"></i>Login</a></li>
+                        <li class="nav-item" id="navRegister"><a class="nav-link" href="register.html"><i class="bi bi-person-plus"></i>Register</a></li>
+                        <li class="nav-item d-none" id="navBookings"><a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
+                        <li class="nav-item d-none" id="navProfile"><a class="nav-link" href="profile.html"><i class="bi bi-person"></i>Profile</a></li>
+                        <li class="nav-item d-none" id="navAdmin"><a class="nav-link" href="admin/dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                        <li class="nav-item d-none" id="navLogout"><a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                        <li class="nav-item ms-2" id="userBadge"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ====== FAQ CONTENT ====== -->
+        <div class="faq-wrapper">
+            <div class="container">
+
+                <!-- Hero Section -->
+                <div class="faq-hero">
+                    <div class="icon-wrapper">
+                        <i class="bi bi-question-circle"></i>
+                    </div>
+                    <h1>Frequently Asked <span class="highlight">Questions</span></h1>
+                    <p>Find answers to the most common questions about our services, booking process, and more.</p>
+                </div>
+
+                <!-- Search -->
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="faqSearch" placeholder="Search for answers..." oninput="searchFAQ()">
+                </div>
+
+                <!-- Categories -->
+                <div class="faq-categories" id="faqCategories">
+                    <button class="category-btn active" data-category="all" onclick="filterCategory('all')">All</button>
+                    <button class="category-btn" data-category="booking" onclick="filterCategory('booking')">Booking</button>
+                    <button class="category-btn" data-category="payment" onclick="filterCategory('payment')">Payment</button>
+                    <button class="category-btn" data-category="services" onclick="filterCategory('services')">Services</button>
+                    <button class="category-btn" data-category="account" onclick="filterCategory('account')">Account</button>
+                    <button class="category-btn" data-category="general" onclick="filterCategory('general')">General</button>
+                </div>
+
+                <!-- FAQ Accordion -->
+                <div class="faq-accordion" id="faqAccordion">
+                    <!-- FAQ items loaded by JavaScript -->
+                </div>
+
+                <!-- CTA Section -->
+                <div class="cta-section">
+                    <h3>Still Have Questions?</h3>
+                    <p>Can't find the answer you're looking for? Reach out to our support team and we'll get back to you within 24 hours.</p>
+                    <a href="contact.html" class="btn-cta"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-light py-4 mt-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:700;font-size:1.1rem;">
+                            <i class="bi bi-droplet me-2" style="color:#38bdf8;"></i>KKK Kar Wash
+                        </h5>
+                        <p style="max-width:350px;">Premium car care, reimagined for the digital age. Book your wash in seconds. No more double bookings, forgotten appointments or cash chaos.</p>
+                        <div class="social-icons mt-2">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="footer-heading">Information</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="about.html"><i class="bi bi-info-circle me-2"></i>About Us</a>
+                                    <a href="contact.html"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+                                    <a href="privacy.html"><i class="bi bi-shield me-2"></i>Privacy Policy</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="terms.html"><i class="bi bi-file-text me-2"></i>Terms of Service</a>
+                                    <a href="faq.html"><i class="bi bi-question-circle me-2"></i>FAQ</a>
+                                    <a href="#"><i class="bi bi-bug me-2"></i>Report Issue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.04);">
+                    <p class="mb-0" style="color:rgba(255,255,255,0.2);font-size:0.85rem;">
+                        <i class="bi bi-droplet-half me-2" style="color:rgba(56,189,248,0.3);"></i>
+                        &copy; 2026 KKK Kar Wash. All rights reserved. | Made with <i class="bi bi-heart-fill" style="color:#e74c3c;font-size:0.7rem;"></i> in Mauritius
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ====== PARTICLES ANIMATION ====== -->
+    <script src="js/particles.js"></script>
+    
+    <!-- ====== COMMON JAVASCRIPT ====== -->
+    <script src="js/common.js"></script>
+
+    <!-- ====== FAQ SCRIPTS ====== -->
+    <script>
+        // ====== FAQ DATA ======
+        const faqData = [
+            {
+                id: 1,
+                category: 'general',
+                question: 'What is KKK Kar Wash?',
+                answer: 'KKK Kar Wash is a premium car wash service that offers convenient online booking. We provide professional car cleaning services with options ranging from Basic Wash to Deluxe Wash, all bookable through our easy-to-use platform.'
+            },
+            {
+                id: 2,
+                category: 'booking',
+                question: 'How do I book a car wash?',
+                answer: 'Booking is simple! Just follow these steps:\n• Go to our Services page\n• Choose your preferred wash package\n• Select a date and time slot\n• Enter your vehicle details\n• Confirm your booking\n• Choose payment method (card or cash)'
+            },
+            {
+                id: 3,
+                category: 'booking',
+                question: 'Can I reschedule or cancel my booking?',
+                answer: 'Yes! You can reschedule or cancel your booking at any time. Simply go to "My Bookings" in your account, find your booking, and click "Reschedule" or "Cancel". We recommend making changes at least 2 hours before your scheduled appointment.'
+            },
+            {
+                id: 4,
+                category: 'payment',
+                question: 'What payment methods do you accept?',
+                answer: 'We accept two payment methods:\n• Card Payment: Secure online payment processed through our payment gateway\n• Cash on Delivery: Pay in cash when you pick up your vehicle'
+            },
+            {
+                id: 5,
+                category: 'payment',
+                question: 'Is my payment information secure?',
+                answer: 'Absolutely! We use industry-standard encryption (SSL/TLS) to protect your payment information. All transactions are processed through secure payment gateways, and we never store your full payment details on our servers.'
+            },
+            {
+                id: 6,
+                category: 'services',
+                question: 'What services do you offer?',
+                answer: 'We offer three wash packages:\n• Basic Wash: Exterior hand wash + tire shine (30 min, $25)\n• Premium Wash: Basic + interior vacuum & dash wipe (50 min, $45)\n• Deluxe Wash: Premium + deep interior cleaning & wax (80 min, $70)'
+            },
+            {
+                id: 7,
+                category: 'services',
+                question: 'How long does a car wash take?',
+                answer: 'The duration depends on the package you choose:\n• Basic Wash: 30 minutes\n• Premium Wash: 50 minutes\n• Deluxe Wash: 80 minutes\nTimes are approximate and may vary based on vehicle condition and queue.'
+            },
+            {
+                id: 8,
+                category: 'account',
+                question: 'How do I create an account?',
+                answer: 'Creating an account is easy! Click the "Register" button in the top right corner, fill in your name, email, and password, then submit. You\'ll receive a confirmation email to verify your account.'
+            },
+            {
+                id: 9,
+                category: 'account',
+                question: 'I forgot my password. What do I do?',
+                answer: 'Don\'t worry! Click "Forgot Password" on the login page, enter your registered email address, and we\'ll send you a password reset link. Follow the instructions in the email to create a new password.'
+            },
+            {
+                id: 10,
+                category: 'general',
+                question: 'What are your business hours?',
+                answer: 'We are open Monday through Saturday from 8:00 AM to 6:00 PM. We are closed on Sundays. Bookings are available during these hours with the last booking slot at 5:00 PM.'
+            },
+            {
+                id: 11,
+                category: 'general',
+                question: 'Where are you located?',
+                answer: 'We are located at 123 Car Wash Street, Port Louis, Mauritius. Our location is easily accessible and offers convenient parking for our customers.'
+            },
+            {
+                id: 12,
+                category: 'booking',
+                question: 'Can I book for multiple vehicles?',
+                answer: 'Yes! You can book for multiple vehicles. Simply create a separate booking for each vehicle, or contact our support team for assistance with bulk bookings.'
+            },
+            {
+                id: 13,
+                category: 'services',
+                question: 'Do you use eco-friendly products?',
+                answer: 'Yes, we are committed to sustainability. We use eco-friendly, biodegradable cleaning products that are safe for your vehicle and the environment. Our water usage is optimized to minimize waste.'
+            },
+            {
+                id: 14,
+                category: 'general',
+                question: 'Do you offer any discounts or promotions?',
+                answer: 'We regularly offer promotions and discounts for our customers. Follow us on social media or subscribe to our newsletter to stay updated on the latest deals and offers.'
+            }
+        ];
+
+        // ============================================================
+        // 🎨 RENDER FUNCTIONS
+        // ============================================================
+
+        let currentCategory = 'all';
+        let currentSearchTerm = '';
+
+        function renderFAQ(items) {
+            const container = document.getElementById('faqAccordion');
+            
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center;padding:2rem 1rem;">
+                        <div style="font-size:3rem;color:rgba(255,255,255,0.05);margin-bottom:1rem;">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <h5 style="color:rgba(255,255,255,0.3);font-weight:600;">No results found</h5>
+                        <p style="color:rgba(255,255,255,0.15);font-size:0.9rem;">Try adjusting your search or category filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.map((faq, index) => `
+                <div class="faq-item" data-id="${faq.id}" data-category="${faq.category}">
+                    <div class="faq-question" onclick="toggleFAQ(${faq.id})">
+                        <span class="question-text">${faq.question}</span>
+                        <span class="question-icon"><i class="bi bi-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer" id="faqAnswer${faq.id}">
+                        <p>${faq.answer.replace(/\n/g, '<br>')}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ============================================================
+        // 🔄 FILTER FUNCTIONS
+        // ============================================================
+
+        function filterCategory(category) {
+            currentCategory = category;
+            
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.category === category);
+            });
+            
+            applyFilters();
+        }
+
+        function searchFAQ() {
+            currentSearchTerm = document.getElementById('faqSearch').value.toLowerCase().trim();
+            applyFilters();
+        }
+
+        function applyFilters() {
+            let filtered = faqData;
+            
+            // Filter by category
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(item => item.category === currentCategory);
+            }
+            
+            // Filter by search term
+            if (currentSearchTerm) {
+                filtered = filtered.filter(item => 
+                    item.question.toLowerCase().includes(currentSearchTerm) || 
+                    item.answer.toLowerCase().includes(currentSearchTerm)
+                );
+            }
+            
+            renderFAQ(filtered);
+        }
+
+        // ============================================================
+        // 📝 TOGGLE FAQ
+        // ============================================================
+
+        function toggleFAQ(id) {
+            const answer = document.getElementById(`faqAnswer${id}`);
+            const question = answer.closest('.faq-item').querySelector('.faq-question');
+            
+            // Close other open items
+            document.querySelectorAll('.faq-answer.open').forEach(el => {
+                if (el.id !== `faqAnswer${id}`) {
+                    el.classList.remove('open');
+                    el.closest('.faq-item').querySelector('.faq-question').classList.remove('active');
+                }
+            });
+            
+            // Toggle this item
+            answer.classList.toggle('open');
+            question.classList.toggle('active');
+        }
+
+        // ============================================================
+        // 🚀 INITIALIZATION
+        // ============================================================
+
+        // ====== LOGOUT ======
+        document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof logout === 'function') {
+                logout();
+            } else {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // ====== INIT PAGE ======
+        function initFAQ() {
+            renderFAQ(faqData);
+            console.log('✅ FAQ page loaded successfully!');
+            console.log('📊 Total FAQs:', faqData.length);
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initFAQ);
+        } else {
+            initFAQ();
+        }
+
+        // Make functions globally available
+        window.toggleFAQ = toggleFAQ;
+        window.filterCategory = filterCategory;
+        window.searchFAQ = searchFAQ;
+    </script>
+</body>
+</html>

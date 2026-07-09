@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login · KKK Kar Wash</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    
+    <!-- ====== CUSTOM CSS ====== -->
+    <link rel="stylesheet" href="css/custom.css"/>
+
+    <style>
+        /* Login page specific styles */
+        .login-wrapper {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            padding: 3rem 2.5rem;
+            max-width: 440px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(56, 189, 248, 0.05), transparent 60%);
+            pointer-events: none;
+        }
+        .login-card:hover {
+            border-color: rgba(56, 189, 248, 0.12);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .login-logo .icon-wrapper {
+            width: 72px;
+            height: 72px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(6, 182, 212, 0.05));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.08);
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.05);
+            margin-bottom: 1rem;
+        }
+        .login-logo h3 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.6rem;
+            margin: 0;
+        }
+        .login-logo p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.95rem;
+            margin: 0.3rem 0 0;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .login-form .form-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+        .login-form .form-control {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            color: #fff;
+            padding: 0.8rem 1.2rem;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+        .login-form .form-control:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.05);
+            color: #fff;
+        }
+        .login-form .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .login-form .input-icon {
+            position: relative;
+        }
+        .login-form .input-icon i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .login-form .input-icon .form-control {
+            padding-left: 3rem;
+        }
+        .login-form .input-icon .form-control:focus + i {
+            color: rgba(56, 189, 248, 0.5);
+        }
+
+        .login-form .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .login-form .form-options .form-check {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .login-form .form-options .form-check-input {
+            background-color: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .login-form .form-options .form-check-input:checked {
+            background-color: #38bdf8;
+            border-color: #38bdf8;
+        }
+        .login-form .form-options .form-check-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .login-form .form-options .forgot-link {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .login-form .form-options .forgot-link:hover {
+            color: #7dd3fc;
+        }
+
+        .login-form .btn-login {
+            width: 100%;
+            padding: 0.85rem;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #0b2b40, #1a5f7a);
+            border: none;
+            color: #fff;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 8px 32px rgba(26, 95, 122, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .login-form .btn-login::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 60%);
+            opacity: 0;
+            transition: 0.4s;
+        }
+        .login-form .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 48px rgba(26, 95, 122, 0.4);
+            background: linear-gradient(135deg, #1a5f7a, #2a7f9a);
+        }
+        .login-form .btn-login:hover::after {
+            opacity: 1;
+        }
+        .login-form .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .login-divider .line {
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .login-divider .text {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .login-footer-links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        .login-footer-links p {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .login-footer-links a {
+            color: #7dd3fc;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .login-footer-links a:hover {
+            color: #38bdf8;
+            text-decoration: underline;
+        }
+
+        .demo-credentials {
+            background: rgba(56, 189, 248, 0.04);
+            border: 1px solid rgba(56, 189, 248, 0.06);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+        .demo-credentials p {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.85rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .demo-credentials code {
+            color: #7dd3fc;
+            background: rgba(56, 189, 248, 0.06);
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .toast-glass {
+            background: rgba(10, 15, 26, 0.92) !important;
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.06) !important;
+            border-radius: 20px !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+            color: #fff !important;
+        }
+
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 2rem 1.5rem;
+                border-radius: 28px;
+                margin: 0 1rem;
+            }
+            .login-logo .icon-wrapper {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+            .login-logo h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== PARTICLES BACKGROUND ====== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ====== GLOW ORBS ====== -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div class="main-content">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar navbar-expand-lg navbar-glass py-2 sticky-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <i class="bi bi-droplet me-2"></i>KKK<span style="font-weight:300;">Kar</span> Wash
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door"></i>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html"><i class="bi bi-grid"></i>Services</a></li>
+                        <li class="nav-item" id="navLogin"><a class="nav-link active" href="login.html"><i class="bi bi-box-arrow-in-right"></i>Login</a></li>
+                        <li class="nav-item" id="navRegister"><a class="nav-link" href="register.html"><i class="bi bi-person-plus"></i>Register</a></li>
+                        <li class="nav-item d-none" id="navBookings"><a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
+                        <li class="nav-item d-none" id="navProfile"><a class="nav-link" href="profile.html"><i class="bi bi-person"></i>Profile</a></li>
+                        <li class="nav-item d-none" id="navAdmin"><a class="nav-link" href="admin/dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                        <li class="nav-item d-none" id="navLogout"><a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                        <li class="nav-item ms-2" id="userBadge"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ====== LOGIN SECTION ====== -->
+        <div class="login-wrapper">
+            <div class="login-card">
+                <!-- Logo -->
+                <div class="login-logo">
+                    <div class="icon-wrapper">
+                        <i class="bi bi-droplet"></i>
+                    </div>
+                    <h3>Welcome Back</h3>
+                    <p>Sign in to manage your bookings</p>
+                </div>
+
+                <!-- Login Form -->
+                <form class="login-form" id="loginForm" novalidate>
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <div class="input-icon">
+                            <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email" value="admin@kkk.com" required autofocus>
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div class="invalid-feedback" id="emailError">Please enter a valid email address.</div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-icon">
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" value="admin123" required>
+                            <i class="bi bi-lock"></i>
+                        </div>
+                        <div class="invalid-feedback" id="passwordError">Password must be at least 6 characters.</div>
+                    </div>
+
+                    <!-- Options -->
+                    <div class="form-options">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="rememberMe" checked>
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button type="submit" class="btn-login" id="loginBtn">
+                        <span id="loginBtnText">Sign In</span>
+                        <span id="loginBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="login-divider">
+                    <span class="line"></span>
+                    <span class="text">or continue with</span>
+                    <span class="line"></span>
+                </div>
+
+                <!-- Social Login -->
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-glow flex-fill" style="padding:0.6rem;font-size:0.85rem;">
+                        <i class="bi bi-google me-2"></i>Google
+                    </button>
+                    <button class="btn btn-outline-glow flex-fill" style="padding:0.6rem;font-size:0.85rem;">
+                        <i class="bi bi-facebook me-2"></i>Facebook
+                    </button>
+                </div>
+
+                <!-- Demo Credentials -->
+                <div class="demo-credentials">
+                    <p><i class="bi bi-info-circle me-1" style="color:#38bdf8;"></i> <strong style="color:rgba(255,255,255,0.6);">Demo Accounts</strong></p>
+                    <p>
+                        <strong style="color:rgba(255,255,255,0.4);">Admin:</strong> 
+                        <code>admin@kkk.com</code> / <code>admin123</code>
+                    </p>
+                    <p style="margin-top:0.2rem;">
+                        <strong style="color:rgba(255,255,255,0.4);">Customer:</strong> 
+                        <code>customer@demo.com</code> / <code>pass123</code>
+                    </p>
+                </div>
+
+                <!-- Register Link -->
+                <div class="login-footer-links">
+                    <p>Don't have an account? <a href="register.html" id="createAccountBtn">Create one now</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-light py-4 mt-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:700;font-size:1.1rem;">
+                            <i class="bi bi-droplet me-2" style="color:#38bdf8;"></i>KKK Kar Wash
+                        </h5>
+                        <p style="max-width:350px;">Premium car care, reimagined for the digital age. Book your wash in seconds.</p>
+                        <div class="social-icons mt-2">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="footer-heading">Information</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="about.html"><i class="bi bi-info-circle me-2"></i>About Us</a>
+                                    <a href="contact.html"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+                                    <a href="#"><i class="bi bi-shield me-2"></i>Privacy Policy</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="#"><i class="bi bi-file-text me-2"></i>Terms of Service</a>
+                                    <a href="#"><i class="bi bi-question-circle me-2"></i>FAQ</a>
+                                    <a href="#"><i class="bi bi-bug me-2"></i>Report Issue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.04);">
+                    <p class="mb-0" style="color:rgba(255,255,255,0.2);font-size:0.85rem;">
+                        <i class="bi bi-droplet-half me-2" style="color:rgba(56,189,248,0.3);"></i>
+                        &copy; 2026 KKK Kar Wash. All rights reserved. | Made with <i class="bi bi-heart-fill" style="color:#e74c3c;font-size:0.7rem;"></i> in Mauritius
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ====== PARTICLES ANIMATION ====== -->
+    <script src="js/particles.js"></script>
+    
+    <!-- ====== COMMON JAVASCRIPT ====== -->
+    <script src="js/common.js"></script>
+
+    <!-- ====== PAGE-SPECIFIC SCRIPTS ====== -->
+    <script>
+        // ====== FIXED: LOGIN HANDLER ======
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const loginBtn = document.getElementById('loginBtn');
+            const loginBtnText = document.getElementById('loginBtnText');
+            const loginBtnSpinner = document.getElementById('loginBtnSpinner');
+
+            // Reset validation
+            document.getElementById('loginEmail').classList.remove('is-invalid');
+            document.getElementById('loginPassword').classList.remove('is-invalid');
+
+            // Validate email
+            if (!isValidEmail(email)) {
+                document.getElementById('loginEmail').classList.add('is-invalid');
+                showToast('Please enter a valid email address.', 'danger');
+                return;
+            }
+
+            // Validate password
+            if (!password || password.length < 6) {
+                document.getElementById('loginPassword').classList.add('is-invalid');
+                showToast('Password must be at least 6 characters.', 'danger');
+                return;
+            }
+
+            // Show loading state
+            loginBtn.disabled = true;
+            loginBtnText.textContent = 'Signing in...';
+            loginBtnSpinner.classList.remove('d-none');
+
+            // Simulate API call
+            setTimeout(function() {
+                // Demo users
+                const users = [
+                    { id: 1, name: 'Admin KKK', email: 'admin@kkk.com', password: 'admin123', role: 'admin' },
+                    { id: 2, name: 'Demo Customer', email: 'customer@demo.com', password: 'pass123', role: 'customer' }
+                ];
+
+                const user = users.find(u => u.email === email && u.password === password);
+
+                if (user) {
+                    // Save user to localStorage
+                    const userData = { id: user.id, name: user.name, email: user.email, role: user.role };
+                    localStorage.setItem('user', JSON.stringify(userData));
+                    
+                    // Save remember me preference
+                    if (rememberMe) {
+                        localStorage.setItem('rememberMe', 'true');
+                    } else {
+                        localStorage.removeItem('rememberMe');
+                    }
+
+                    showToast(`👋 Welcome back, ${user.name}!`, 'success');
+
+                    // FIXED: Redirect after a short delay to ensure toast is shown
+                    setTimeout(function() {
+                        if (user.role === 'admin') {
+                            window.location.href = 'admin/dashboard.html';
+                        } else {
+                            window.location.href = 'index.html';
+                        }
+                    }, 800);
+                } else {
+                    showToast('❌ Invalid email or password. Please try again.', 'danger');
+                    
+                    // Reset button
+                    loginBtn.disabled = false;
+                    loginBtnText.textContent = 'Sign In';
+                    loginBtnSpinner.classList.add('d-none');
+                }
+            }, 800);
+        });
+
+        // ====== REAL-TIME VALIDATION ======
+        document.getElementById('loginEmail').addEventListener('input', function() {
+            if (this.value.trim() && isValidEmail(this.value.trim())) {
+                this.classList.remove('is-invalid');
+            }
+        });
+
+        document.getElementById('loginPassword').addEventListener('input', function() {
+            if (this.value && this.value.length >= 6) {
+                this.classList.remove('is-invalid');
+            }
+        });
+
+        // ====== CREATE ACCOUNT BUTTON ======
+        document.getElementById('createAccountBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'register.html';
+        });
+
+        // ====== LOGOUT ======
+        document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof logout === 'function') {
+                logout();
+            } else {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // ====== CHECK IF ALREADY LOGGED IN ======
+        // FIXED: Only redirect if user is logged in AND we're not already on the login page
+        const user = getUser();
+        if (user) {
+            // Redirect to appropriate page if already logged in
+            if (user.role === 'admin') {
+                window.location.href = 'admin/dashboard.html';
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ====== RESTORE REMEMBER ME ======
+        const rememberMe = localStorage.getItem('rememberMe');
+        if (rememberMe === 'true') {
+            document.getElementById('rememberMe').checked = true;
+        }
+
+        console.log('✅ Login page loaded successfully!');
+    </script>
+</body>
+</html>

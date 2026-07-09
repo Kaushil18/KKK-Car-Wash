@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Privacy Policy · KKK Kar Wash</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    
+    <!-- ====== CUSTOM CSS ====== -->
+    <link rel="stylesheet" href="css/custom.css"/>
+
+    <style>
+        /* Privacy page specific styles */
+        .privacy-wrapper {
+            padding: 2rem 0;
+        }
+
+        .privacy-hero {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            border-radius: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+        .privacy-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(56, 189, 248, 0.05), transparent 60%);
+            pointer-events: none;
+        }
+        .privacy-hero .icon-wrapper {
+            width: 72px;
+            height: 72px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(6, 182, 212, 0.05));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.08);
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.05);
+            margin-bottom: 1rem;
+        }
+        .privacy-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.1;
+        }
+        .privacy-hero h1 .highlight {
+            background: linear-gradient(135deg, #7dd3fc, #38bdf8, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .privacy-hero p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 1rem auto 0;
+            line-height: 1.7;
+        }
+
+        /* Content Card */
+        .content-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 2.5rem;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .content-card:hover {
+            border-color: rgba(56, 189, 248, 0.08);
+        }
+
+        .content-card h3 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .content-card h3 i {
+            color: #38bdf8;
+            font-size: 1.2rem;
+        }
+        .content-card p {
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        .content-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .content-card ul li {
+            color: rgba(255, 255, 255, 0.5);
+            padding: 0.4rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .content-card ul li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: #38bdf8;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .content-card .last-updated {
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .content-card .highlight-box {
+            background: rgba(56, 189, 248, 0.04);
+            border-left: 3px solid #38bdf8;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .content-card .highlight-box p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+        }
+        .content-card .highlight-box strong {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .privacy-hero {
+                padding: 1.5rem;
+                border-radius: 28px;
+            }
+            .privacy-hero h1 {
+                font-size: 2rem;
+            }
+            .content-card {
+                padding: 1.5rem;
+            }
+            .content-card h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== PARTICLES BACKGROUND ====== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ====== GLOW ORBS ====== -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div class="main-content">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar navbar-expand-lg navbar-glass py-2 sticky-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <i class="bi bi-droplet me-2"></i>KKK<span style="font-weight:300;">Kar</span> Wash
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door"></i>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html"><i class="bi bi-grid"></i>Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html"><i class="bi bi-info-circle"></i>About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-envelope"></i>Contact</a></li>
+                        <li class="nav-item" id="navLogin"><a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right"></i>Login</a></li>
+                        <li class="nav-item" id="navRegister"><a class="nav-link" href="register.html"><i class="bi bi-person-plus"></i>Register</a></li>
+                        <li class="nav-item d-none" id="navBookings"><a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
+                        <li class="nav-item d-none" id="navProfile"><a class="nav-link" href="profile.html"><i class="bi bi-person"></i>Profile</a></li>
+                        <li class="nav-item d-none" id="navAdmin"><a class="nav-link" href="admin/dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                        <li class="nav-item d-none" id="navLogout"><a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                        <li class="nav-item ms-2" id="userBadge"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ====== PRIVACY CONTENT ====== -->
+        <div class="privacy-wrapper">
+            <div class="container">
+
+                <!-- Hero Section -->
+                <div class="privacy-hero">
+                    <div class="icon-wrapper">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h1>Privacy <span class="highlight">Policy</span></h1>
+                    <p>Your privacy matters to us. Learn how we collect, use, and protect your personal information.</p>
+                </div>
+
+                <!-- Content -->
+                <div class="content-card">
+
+                    <!-- Last Updated -->
+                    <div style="text-align:right;margin-bottom:1.5rem;color:rgba(255,255,255,0.15);font-size:0.8rem;">
+                        <i class="bi bi-clock me-1"></i> Last Updated: July 2024
+                    </div>
+
+                    <!-- Section 1 -->
+                    <h3><i class="bi bi-info-circle"></i> Introduction</h3>
+                    <p>
+                        At KKK Kar Wash, we are committed to protecting your privacy and ensuring the security of your personal information. 
+                        This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our website 
+                        and services.
+                    </p>
+                    <p>
+                        By using our website and services, you agree to the collection and use of information in accordance with this policy. 
+                        We will not use or share your information with anyone except as described in this Privacy Policy.
+                    </p>
+
+                    <!-- Section 2 -->
+                    <h3><i class="bi bi-database"></i> Information We Collect</h3>
+                    <p>We collect several types of information to provide and improve our services:</p>
+                    <ul>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Personal Information:</strong> Name, email address, phone number, and vehicle details that you provide when registering or booking a service.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Booking Information:</strong> Service history, appointment dates, times, and payment information.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Usage Data:</strong> Information about how you use our website, including pages visited, time spent, and interactions.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Device Information:</strong> Browser type, IP address, device type, and operating system.</li>
+                    </ul>
+
+                    <!-- Section 3 -->
+                    <h3><i class="bi bi-gear"></i> How We Use Your Information</h3>
+                    <p>We use the collected information for various purposes:</p>
+                    <ul>
+                        <li>To provide and maintain our services</li>
+                        <li>To process and confirm your bookings</li>
+                        <li>To send you booking confirmations and reminders</li>
+                        <li>To improve our website and services</li>
+                        <li>To communicate with you about promotions and updates</li>
+                        <li>To prevent fraudulent activities and ensure security</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <p><strong>Note:</strong> We never sell, rent, or share your personal information with third parties for marketing purposes without your explicit consent.</p>
+                    </div>
+
+                    <!-- Section 4 -->
+                    <h3><i class="bi bi-shield-lock"></i> Data Security</h3>
+                    <p>
+                        We implement a variety of security measures to maintain the safety of your personal information. 
+                        Your data is stored on secure servers with restricted access, and we use encryption protocols to protect 
+                        sensitive information during transmission.
+                    </p>
+                    <ul>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Encryption:</strong> All data transmitted between your browser and our servers is encrypted using SSL/TLS.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Access Control:</strong> Only authorized personnel have access to your personal information.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Regular Audits:</strong> We conduct regular security audits to identify and address vulnerabilities.</li>
+                    </ul>
+
+                    <!-- Section 5 -->
+                    <h3><i class="bi bi-cookie"></i> Cookies & Tracking</h3>
+                    <p>
+                        We use cookies and similar tracking technologies to enhance your experience on our website. 
+                        Cookies are small files stored on your device that help us remember your preferences and understand how you use our site.
+                    </p>
+                    <ul>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Essential Cookies:</strong> Necessary for the website to function properly.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Preference Cookies:</strong> Remember your settings and preferences.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Analytics Cookies:</strong> Help us understand how visitors interact with our website.</li>
+                    </ul>
+                    <p>You can control cookies through your browser settings. However, disabling cookies may affect certain features of our website.</p>
+
+                    <!-- Section 6 -->
+                    <h3><i class="bi bi-person"></i> Your Rights</h3>
+                    <p>You have the following rights regarding your personal information:</p>
+                    <ul>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Access:</strong> Request a copy of your personal data.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Correction:</strong> Request corrections to inaccurate or incomplete data.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Deletion:</strong> Request deletion of your personal data.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Objection:</strong> Object to the processing of your data.</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Portability:</strong> Request transfer of your data to another service.</li>
+                    </ul>
+                    <p>To exercise any of these rights, please contact us using the information provided below.</p>
+
+                    <!-- Section 7 -->
+                    <h3><i class="bi bi-clock-history"></i> Data Retention</h3>
+                    <p>
+                        We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, 
+                        or as required by law. When we no longer need your information, we securely delete or anonymize it.
+                    </p>
+
+                    <!-- Section 8 -->
+                    <h3><i class="bi bi-envelope"></i> Contact Us</h3>
+                    <p>
+                        If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us:
+                    </p>
+                    <ul>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Email:</strong> privacy@kkkarwash.com</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Phone:</strong> +230 555-0123</li>
+                        <li><strong style="color:rgba(255,255,255,0.7);">Address:</strong> 123 Car Wash Street, Port Louis, Mauritius</li>
+                    </ul>
+
+                    <!-- Section 9 -->
+                    <h3><i class="bi bi-arrow-repeat"></i> Changes to This Policy</h3>
+                    <p>
+                        We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy 
+                        on this page and updating the "Last Updated" date. We encourage you to review this policy periodically to stay informed 
+                        about how we protect your information.
+                    </p>
+
+                    <!-- Last Updated Footer -->
+                    <div class="last-updated">
+                        <i class="bi bi-shield-check me-1"></i> KKK Kar Wash &bull; Committed to protecting your privacy
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-light py-4 mt-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:700;font-size:1.1rem;">
+                            <i class="bi bi-droplet me-2" style="color:#38bdf8;"></i>KKK Kar Wash
+                        </h5>
+                        <p style="max-width:350px;">Premium car care, reimagined for the digital age. Book your wash in seconds.</p>
+                        <div class="social-icons mt-2">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="footer-heading">Information</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="about.html"><i class="bi bi-info-circle me-2"></i>About Us</a>
+                                    <a href="contact.html"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+                                    <a href="privacy.html"><i class="bi bi-shield me-2"></i>Privacy Policy</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="#"><i class="bi bi-file-text me-2"></i>Terms of Service</a>
+                                    <a href="#"><i class="bi bi-question-circle me-2"></i>FAQ</a>
+                                    <a href="#"><i class="bi bi-bug me-2"></i>Report Issue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.04);">
+                    <p class="mb-0" style="color:rgba(255,255,255,0.2);font-size:0.85rem;">
+                        <i class="bi bi-droplet-half me-2" style="color:rgba(56,189,248,0.3);"></i>
+                        &copy; 2026 KKK Kar Wash. All rights reserved. | Made with <i class="bi bi-heart-fill" style="color:#e74c3c;font-size:0.7rem;"></i> in Mauritius
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ====== PARTICLES ANIMATION ====== -->
+    <script src="js/particles.js"></script>
+    
+    <!-- ====== COMMON JAVASCRIPT ====== -->
+    <script src="js/common.js"></script>
+
+    <!-- ====== PAGE-SPECIFIC SCRIPTS ====== -->
+    <script>
+        // ====== LOGOUT ======
+        document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof logout === 'function') {
+                logout();
+            } else {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            }
+        });
+
+        console.log('✅ Privacy Policy page loaded successfully!');
+    </script>
+</body>
+</html>

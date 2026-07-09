@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Contact Us · KKK Kar Wash</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+    
+    <!-- ====== CUSTOM CSS ====== -->
+    <link rel="stylesheet" href="css/custom.css"/>
+
+    <style>
+        /* Contact page specific styles */
+        .contact-hero {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(24px) saturate(1.6);
+            -webkit-backdrop-filter: blur(24px) saturate(1.6);
+            border-radius: 48px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(56, 189, 248, 0.05), transparent 60%);
+            pointer-events: none;
+        }
+
+        .contact-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.1;
+        }
+        .contact-hero h1 .highlight {
+            background: linear-gradient(135deg, #7dd3fc, #38bdf8, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .contact-hero p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 1rem auto 0;
+            line-height: 1.7;
+        }
+
+        /* Contact Card */
+        .contact-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px) saturate(1.4);
+            -webkit-backdrop-filter: blur(16px) saturate(1.4);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 2.5rem;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            height: 100%;
+        }
+        .contact-card:hover {
+            border-color: rgba(56, 189, 248, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .contact-card .icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(6, 182, 212, 0.04));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #7dd3fc;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(56, 189, 248, 0.06);
+        }
+        .contact-card h4 {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .contact-card p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.95rem;
+            margin: 0.3rem 0 0;
+            line-height: 1.6;
+        }
+        .contact-card a {
+            color: #7dd3fc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .contact-card a:hover {
+            color: #38bdf8;
+            text-decoration: underline;
+        }
+
+        /* Form styles */
+        .contact-form .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .contact-form .form-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+        .contact-form .form-control {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            color: #fff;
+            padding: 0.8rem 1.2rem;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+        .contact-form .form-control:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.05);
+            color: #fff;
+        }
+        .contact-form .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .contact-form .form-control.is-invalid {
+            border-color: rgba(248, 113, 113, 0.5);
+        }
+        .contact-form .invalid-feedback {
+            color: #f87171;
+            font-size: 0.85rem;
+        }
+        .contact-form .input-icon {
+            position: relative;
+        }
+        .contact-form .input-icon i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .contact-form .input-icon .form-control {
+            padding-left: 3rem;
+        }
+        .contact-form .input-icon .form-control:focus + i {
+            color: rgba(56, 189, 248, 0.5);
+        }
+
+        .contact-form .btn-send {
+            width: 100%;
+            padding: 0.85rem;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #0b2b40, #1a5f7a);
+            border: none;
+            color: #fff;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 8px 32px rgba(26, 95, 122, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-form .btn-send::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 60%);
+            opacity: 0;
+            transition: 0.4s;
+        }
+        .contact-form .btn-send:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 48px rgba(26, 95, 122, 0.4);
+            background: linear-gradient(135deg, #1a5f7a, #2a7f9a);
+        }
+        .contact-form .btn-send:hover::after {
+            opacity: 1;
+        }
+        .contact-form .btn-send:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Social links in contact card */
+        .social-links-contact {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        .social-links-contact a {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.2rem;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .social-links-contact a:hover {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: rgba(56, 189, 248, 0.2);
+            color: #7dd3fc;
+            transform: translateY(-3px);
+        }
+
+        /* Map placeholder */
+        .map-placeholder {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+            transition: 0.3s;
+        }
+        .map-placeholder:hover {
+            border-color: rgba(56, 189, 248, 0.12);
+        }
+        .map-placeholder .map-icon {
+            font-size: 4rem;
+            color: rgba(56, 189, 248, 0.2);
+            margin-bottom: 1rem;
+        }
+        .map-placeholder h5 {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+        }
+        .map-placeholder p {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Toast override */
+        .toast-glass {
+            background: rgba(10, 15, 26, 0.92) !important;
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.06) !important;
+            border-radius: 20px !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+            color: #fff !important;
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero {
+                padding: 1.5rem;
+                border-radius: 28px;
+            }
+            .contact-hero h1 {
+                font-size: 2rem;
+            }
+            .contact-card {
+                padding: 1.5rem;
+            }
+            .map-placeholder {
+                padding: 2rem 1rem;
+            }
+            .map-placeholder .map-icon {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== PARTICLES BACKGROUND ====== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ====== GLOW ORBS ====== -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div class="main-content">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar navbar-expand-lg navbar-glass py-2 sticky-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <i class="bi bi-droplet me-2"></i>KKK<span style="font-weight:300;">Kar</span> Wash
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door"></i>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html"><i class="bi bi-grid"></i>Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html"><i class="bi bi-info-circle"></i>About</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="contact.html"><i class="bi bi-envelope"></i>Contact</a></li>
+                        <li class="nav-item" id="navLogin"><a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right"></i>Login</a></li>
+                        <li class="nav-item" id="navRegister"><a class="nav-link" href="register.html"><i class="bi bi-person-plus"></i>Register</a></li>
+                        <li class="nav-item d-none" id="navBookings"><a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
+                        <li class="nav-item d-none" id="navProfile"><a class="nav-link" href="profile.html"><i class="bi bi-person"></i>Profile</a></li>
+                        <li class="nav-item d-none" id="navAdmin"><a class="nav-link" href="admin/dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                        <li class="nav-item d-none" id="navLogout"><a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                        <li class="nav-item ms-2" id="userBadge"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ====== CONTACT CONTENT ====== -->
+        <main class="container py-4">
+
+            <!-- Hero Section -->
+            <div class="contact-hero">
+                <span class="badge-soft"><i class="bi bi-chat-dots me-1"></i> Get in Touch</span>
+                <h1>We'd Love to <span class="highlight">Hear From You</span></h1>
+                <p>Have questions about our services? Need help with a booking? Our team is here to assist you. Reach out to us anytime.</p>
+            </div>
+
+            <!-- Contact Info & Form -->
+            <div class="row g-4">
+                <!-- Contact Information -->
+                <div class="col-lg-5">
+                    <div class="contact-card">
+                        <div class="icon-wrapper"><i class="bi bi-info-circle"></i></div>
+                        <h4>Contact Information</h4>
+                        <p style="color:rgba(255,255,255,0.3);font-size:0.9rem;margin-bottom:1.5rem;">Reach out to us through any of the following channels</p>
+
+                        <div style="margin-bottom:1.5rem;">
+                            <div style="display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1rem;">
+                                <i class="bi bi-geo-alt" style="color:#38bdf8;font-size:1.2rem;margin-top:0.2rem;"></i>
+                                <div>
+                                    <p style="color:rgba(255,255,255,0.3);font-size:0.8rem;margin:0;">Location</p>
+                                    <p style="color:#fff;margin:0;font-weight:500;">123 Car Wash Street, Port Louis, Mauritius</p>
+                                </div>
+                            </div>
+                            <div style="display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1rem;">
+                                <i class="bi bi-telephone" style="color:#38bdf8;font-size:1.2rem;margin-top:0.2rem;"></i>
+                                <div>
+                                    <p style="color:rgba(255,255,255,0.3);font-size:0.8rem;margin:0;">Phone</p>
+                                    <a href="tel:+2305550123" style="color:#fff;font-weight:500;text-decoration:none;">+230 555-0123</a>
+                                </div>
+                            </div>
+                            <div style="display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1rem;">
+                                <i class="bi bi-envelope" style="color:#38bdf8;font-size:1.2rem;margin-top:0.2rem;"></i>
+                                <div>
+                                    <p style="color:rgba(255,255,255,0.3);font-size:0.8rem;margin:0;">Email</p>
+                                    <a href="mailto:info@kkkarwash.com" style="color:#fff;font-weight:500;text-decoration:none;">info@kkkarwash.com</a>
+                                </div>
+                            </div>
+                            <div style="display:flex;align-items:flex-start;gap:0.8rem;">
+                                <i class="bi bi-clock" style="color:#38bdf8;font-size:1.2rem;margin-top:0.2rem;"></i>
+                                <div>
+                                    <p style="color:rgba(255,255,255,0.3);font-size:0.8rem;margin:0;">Business Hours</p>
+                                    <p style="color:#fff;margin:0;font-weight:500;">Mon - Sat: 8:00 AM - 6:00 PM</p>
+                                    <p style="color:rgba(255,255,255,0.2);margin:0;font-size:0.85rem;">Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="border-top:1px solid rgba(255,255,255,0.04);padding-top:1.2rem;">
+                            <p style="color:rgba(255,255,255,0.3);font-size:0.9rem;margin-bottom:0.8rem;">Follow us on social media</p>
+                            <div class="social-links-contact">
+                                <a href="#"><i class="bi bi-facebook"></i></a>
+                                <a href="#"><i class="bi bi-instagram"></i></a>
+                                <a href="#"><i class="bi bi-twitter"></i></a>
+                                <a href="#"><i class="bi bi-youtube"></i></a>
+                                <a href="#"><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="col-lg-7">
+                    <div class="contact-card">
+                        <div class="icon-wrapper"><i class="bi bi-envelope-paper"></i></div>
+                        <h4>Send Us a Message</h4>
+                        <p style="color:rgba(255,255,255,0.3);font-size:0.9rem;margin-bottom:1.5rem;">We'll get back to you within 24 hours</p>
+
+                        <form class="contact-form" id="contactForm" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name</label>
+                                        <div class="input-icon">
+                                            <input type="text" class="form-control" id="contactName" placeholder="Enter your name" required>
+                                            <i class="bi bi-person"></i>
+                                        </div>
+                                        <div class="invalid-feedback" id="nameError">Please enter your name.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Email Address</label>
+                                        <div class="input-icon">
+                                            <input type="email" class="form-control" id="contactEmail" placeholder="Enter your email" required>
+                                            <i class="bi bi-envelope"></i>
+                                        </div>
+                                        <div class="invalid-feedback" id="emailError">Please enter a valid email.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <div class="input-icon">
+                                    <input type="text" class="form-control" id="contactSubject" placeholder="What's this about?" required>
+                                    <i class="bi bi-tag"></i>
+                                </div>
+                                <div class="invalid-feedback" id="subjectError">Please enter a subject.</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" id="contactMessage" rows="5" placeholder="Tell us how we can help..." required style="resize:vertical;min-height:120px;"></textarea>
+                                <div class="invalid-feedback" id="messageError">Please enter your message.</div>
+                            </div>
+
+                            <button type="submit" class="btn-send" id="sendBtn">
+                                <span id="sendBtnText"><i class="bi bi-send me-2"></i>Send Message</span>
+                                <span id="sendBtnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Placeholder -->
+            <div class="map-placeholder">
+                <div class="map-icon"><i class="bi bi-geo-alt"></i></div>
+                <h5>Find Us on the Map</h5>
+                <p>123 Car Wash Street, Port Louis, Mauritius</p>
+                <div style="margin-top:1rem;background:rgba(255,255,255,0.02);border-radius:16px;padding:1rem;max-width:400px;margin-left:auto;margin-right:auto;">
+                    <p style="color:rgba(255,255,255,0.15);font-size:0.8rem;margin:0;">
+                        <i class="bi bi-info-circle me-1"></i> Interactive map coming soon
+                    </p>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-light py-4 mt-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:700;font-size:1.1rem;">
+                            <i class="bi bi-droplet me-2" style="color:#38bdf8;"></i>KKK Kar Wash
+                        </h5>
+                        <p style="max-width:350px;">Premium car care, reimagined for the digital age. Book your wash in seconds. No more double bookings, forgotten appointments or cash chaos.</p>
+                        <div class="social-icons mt-2">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="footer-heading">Information</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="about.html"><i class="bi bi-info-circle me-2"></i>About Us</a>
+                                    <a href="contact.html"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+                                    <a href="#"><i class="bi bi-shield me-2"></i>Privacy Policy</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="#"><i class="bi bi-file-text me-2"></i>Terms of Service</a>
+                                    <a href="#"><i class="bi bi-question-circle me-2"></i>FAQ</a>
+                                    <a href="#"><i class="bi bi-bug me-2"></i>Report Issue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.04);">
+                    <p class="mb-0" style="color:rgba(255,255,255,0.2);font-size:0.85rem;">
+                        <i class="bi bi-droplet-half me-2" style="color:rgba(56,189,248,0.3);"></i>
+                        &copy; 2026 KKK Kar Wash. All rights reserved. | Made with <i class="bi bi-heart-fill" style="color:#e74c3c;font-size:0.7rem;"></i> in Mauritius
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ====== PARTICLES ANIMATION ====== -->
+    <script src="js/particles.js"></script>
+    
+    <!-- ====== COMMON JAVASCRIPT ====== -->
+    <script src="js/common.js"></script>
+
+    <!-- ====== PAGE-SPECIFIC SCRIPTS ====== -->
+    <script>
+        // ====== CONTACT FORM HANDLER ======
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const subject = document.getElementById('contactSubject').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            const sendBtn = document.getElementById('sendBtn');
+            const sendBtnText = document.getElementById('sendBtnText');
+            const sendBtnSpinner = document.getElementById('sendBtnSpinner');
+
+            // Reset validation
+            document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-invalid'));
+
+            // Validate name
+            if (!name || name.length < 2) {
+                document.getElementById('contactName').classList.add('is-invalid');
+                showToast('Please enter your name.', 'danger');
+                return;
+            }
+
+            // Validate email
+            if (!isValidEmail(email)) {
+                document.getElementById('contactEmail').classList.add('is-invalid');
+                showToast('Please enter a valid email address.', 'danger');
+                return;
+            }
+
+            // Validate subject
+            if (!subject || subject.length < 3) {
+                document.getElementById('contactSubject').classList.add('is-invalid');
+                showToast('Please enter a subject.', 'danger');
+                return;
+            }
+
+            // Validate message
+            if (!message || message.length < 10) {
+                document.getElementById('contactMessage').classList.add('is-invalid');
+                showToast('Please enter a message (at least 10 characters).', 'danger');
+                return;
+            }
+
+            // Show loading state
+            sendBtn.disabled = true;
+            sendBtnText.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending...';
+            sendBtnSpinner.classList.remove('d-none');
+
+            // Simulate API call
+            setTimeout(function() {
+                // Log the message (in production, this would send to a backend)
+                console.log('Contact Form Submission:');
+                console.log('Name:', name);
+                console.log('Email:', email);
+                console.log('Subject:', subject);
+                console.log('Message:', message);
+
+                // Save to localStorage (for demo purposes)
+                const messages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
+                messages.push({
+                    id: Date.now(),
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message,
+                    date: new Date().toISOString()
+                });
+                localStorage.setItem('contactMessages', JSON.stringify(messages));
+
+                showToast('✅ Message sent successfully! We\'ll get back to you within 24 hours.', 'success');
+
+                // Reset form
+                document.getElementById('contactForm').reset();
+
+                // Reset button
+                sendBtn.disabled = false;
+                sendBtnText.innerHTML = '<i class="bi bi-send me-2"></i>Send Message';
+                sendBtnSpinner.classList.add('d-none');
+
+            }, 1500);
+        });
+
+        // ====== REAL-TIME VALIDATION ======
+        document.getElementById('contactEmail').addEventListener('input', function() {
+            if (this.value.trim() && isValidEmail(this.value.trim())) {
+                this.classList.remove('is-invalid');
+            }
+        });
+
+        document.getElementById('contactName').addEventListener('input', function() {
+            if (this.value.trim() && this.value.trim().length >= 2) {
+                this.classList.remove('is-invalid');
+            }
+        });
+
+        document.getElementById('contactSubject').addEventListener('input', function() {
+            if (this.value.trim() && this.value.trim().length >= 3) {
+                this.classList.remove('is-invalid');
+            }
+        });
+
+        document.getElementById('contactMessage').addEventListener('input', function() {
+            if (this.value.trim() && this.value.trim().length >= 10) {
+                this.classList.remove('is-invalid');
+            }
+        });
+
+        // ====== LOGOUT ======
+        document.getElementById('logoutBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof logout === 'function') {
+                logout();
+            } else {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            }
+        });
+
+        console.log('✅ Contact page loaded successfully!');
+    </script>
+</body>
+</html>

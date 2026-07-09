@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Service · KKK Kar Wash</title>
+
+    <!-- Bootstrap 5 + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- custom.css (shared theme) -->
+    <link rel="stylesheet" href="css/custom.css" />
+
+    <style>
+        /* ---- Terms page specific styles ---- */
+        body {
+            background: #0b1219;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .terms-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 28px;
+            padding: 2.5rem 3rem 3rem;
+            transition: 0.2s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .terms-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .terms-header h1 {
+            color: #fff;
+            font-weight: 800;
+            font-size: 2.2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .terms-header .last-updated {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+        }
+
+        .terms-section {
+            margin-bottom: 2.2rem;
+        }
+
+        .terms-section h3 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .terms-section h3 i {
+            color: #38bdf8;
+            font-size: 1.1rem;
+        }
+
+        .terms-section p,
+        .terms-section li {
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .terms-section ul {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .terms-section ul li {
+            margin-bottom: 0.4rem;
+        }
+
+        .terms-section strong {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .terms-section .highlight-box {
+            background: rgba(56, 189, 248, 0.04);
+            border: 1px solid rgba(56, 189, 248, 0.06);
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .terms-section .highlight-box p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+        }
+
+        .terms-section .highlight-box i {
+            color: #38bdf8;
+            margin-right: 0.5rem;
+        }
+
+        .terms-footer-actions {
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 1.8rem;
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.4);
+            border-radius: 40px;
+            padding: 0.5rem 1.8rem;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary-glow {
+            background: linear-gradient(145deg, #1a8aaa, #0f5e7a);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.5rem 2rem;
+            border-radius: 40px;
+            transition: 0.2s;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.05);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary-glow:hover {
+            background: linear-gradient(145deg, #249ec0, #14708f);
+            color: #fff;
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.1);
+        }
+
+        .terms-sidebar {
+            background: rgba(255, 255, 255, 0.015);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            position: sticky;
+            top: 100px;
+        }
+
+        .terms-sidebar h6 {
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 1rem;
+        }
+
+        .terms-sidebar a {
+            display: block;
+            color: rgba(255, 255, 255, 0.25);
+            text-decoration: none;
+            padding: 0.4rem 0;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .terms-sidebar a:hover {
+            color: #7dd3fc;
+            padding-left: 0.3rem;
+        }
+
+        .terms-sidebar a i {
+            margin-right: 0.5rem;
+            font-size: 0.7rem;
+            opacity: 0.4;
+        }
+
+        @media (max-width: 768px) {
+            .terms-card {
+                padding: 1.5rem;
+            }
+            .terms-header h1 {
+                font-size: 1.6rem;
+            }
+            .terms-footer-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .terms-footer-actions .btn {
+                text-align: center;
+            }
+            .terms-sidebar {
+                position: relative;
+                top: 0;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            color: #7dd3fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.3s;
+            opacity: 0;
+            pointer-events: none;
+            backdrop-filter: blur(8px);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            background: rgba(56, 189, 248, 0.15);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== PARTICLES BACKGROUND ====== -->
+    <canvas id="particles-canvas"></canvas>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="main-content">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar navbar-expand-lg navbar-glass py-2 sticky-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <i class="bi bi-droplet me-2"></i>KKK<span style="font-weight:300;">Kar</span> Wash
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door"></i>Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html"><i class="bi bi-grid"></i>Services</a></li>
+                        <li class="nav-item d-none" id="navLogin"><a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right"></i>Login</a></li>
+                        <li class="nav-item d-none" id="navRegister"><a class="nav-link" href="register.html"><i class="bi bi-person-plus"></i>Register</a></li>
+                        <li class="nav-item d-none" id="navBookings"><a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
+                        <li class="nav-item d-none" id="navProfile"><a class="nav-link" href="profile.html"><i class="bi bi-person"></i>Profile</a></li>
+                        <li class="nav-item d-none" id="navAdmin"><a class="nav-link" href="admin/dashboard.html"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
+                        <li class="nav-item" id="navLogout"><a class="nav-link" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                        <li class="nav-item ms-2" id="userBadge"></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ====== TERMS CONTENT ====== -->
+        <main class="container py-4">
+
+            <div class="row g-4">
+                <!-- Sidebar navigation -->
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="terms-sidebar">
+                        <h6><i class="bi bi-list-ul me-2"></i>On this page</h6>
+                        <a href="#section-1"><i class="bi bi-chevron-right"></i>1. Acceptance of Terms</a>
+                        <a href="#section-2"><i class="bi bi-chevron-right"></i>2. Services</a>
+                        <a href="#section-3"><i class="bi bi-chevron-right"></i>3. Booking & Payments</a>
+                        <a href="#section-4"><i class="bi bi-chevron-right"></i>4. Cancellations</a>
+                        <a href="#section-5"><i class="bi bi-chevron-right"></i>5. User Accounts</a>
+                        <a href="#section-6"><i class="bi bi-chevron-right"></i>6. Privacy</a>
+                        <a href="#section-7"><i class="bi bi-chevron-right"></i>7. Liability</a>
+                        <a href="#section-8"><i class="bi bi-chevron-right"></i>8. Changes to Terms</a>
+                        <a href="#section-9"><i class="bi bi-chevron-right"></i>9. Contact</a>
+                    </div>
+                </div>
+
+                <!-- Main content -->
+                <div class="col-lg-9">
+                    <div class="terms-card">
+
+                        <!-- Header -->
+                        <div class="terms-header">
+                            <h1><i class="bi bi-file-text me-3" style="color:#38bdf8;"></i>Terms of Service</h1>
+                            <p class="last-updated">
+                                <i class="bi bi-clock me-1"></i> Last updated: April 14, 2026
+                            </p>
+                            <div class="highlight-box">
+                                <p>
+                                    <i class="bi bi-info-circle"></i>
+                                    By using KKK Kar Wash's services, you agree to these terms. 
+                                    Please read them carefully before booking.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Section 1 -->
+                        <div class="terms-section" id="section-1">
+                            <h3><i class="bi bi-1-circle"></i> Acceptance of Terms</h3>
+                            <p>
+                                By accessing or using the KKK Kar Wash website, mobile application, or any of our services 
+                                (collectively, the "Services"), you agree to be bound by these Terms of Service 
+                                ("Terms"). If you do not agree to these Terms, please do not use our Services.
+                            </p>
+                            <p>
+                                These Terms apply to all users, including customers, service providers, and administrators. 
+                                We reserve the right to update or modify these Terms at any time without prior notice. 
+                                Your continued use of the Services after any changes constitutes your acceptance of the new Terms.
+                            </p>
+                        </div>
+
+                        <!-- Section 2 -->
+                        <div class="terms-section" id="section-2">
+                            <h3><i class="bi bi-2-circle"></i> Our Services</h3>
+                            <p>
+                                KKK Kar Wash provides professional car wash and detailing services. Our Services include:
+                            </p>
+                            <ul>
+                                <li><strong>Basic Wash</strong> – Exterior wash and dry</li>
+                                <li><strong>Premium Wash</strong> – Exterior wash, dry, and interior vacuum</li>
+                                <li><strong>Deluxe Wash</strong> – Full exterior and interior detailing</li>
+                                <li><strong>Interior Detail</strong> – Comprehensive interior cleaning</li>
+                            </ul>
+                            <p>
+                                We reserve the right to modify, suspend, or discontinue any part of our Services at any time. 
+                                We will make reasonable efforts to notify you of any significant changes.
+                            </p>
+                        </div>
+
+                        <!-- Section 3 -->
+                        <div class="terms-section" id="section-3">
+                            <h3><i class="bi bi-3-circle"></i> Booking & Payments</h3>
+                            <p>
+                                <strong>Booking:</strong> All bookings are subject to availability. By making a booking, 
+                                you agree to provide accurate and complete information. We reserve the right to refuse 
+                                or cancel any booking at our discretion.
+                            </p>
+                            <p>
+                                <strong>Payments:</strong> Prices for our services are displayed on our website and are 
+                                subject to change without notice. Payment is required at the time of booking unless otherwise 
+                                agreed. We accept:
+                            </p>
+                            <ul>
+                                <li>Credit / Debit cards (Visa, Mastercard, American Express)</li>
+                                <li>Cash on delivery (where available)</li>
+                                <li>Mobile payments (where available)</li>
+                            </ul>
+                            <p>
+                                All payments are processed securely. We do not store your full payment information on our servers.
+                            </p>
+                        </div>
+
+                        <!-- Section 4 -->
+                        <div class="terms-section" id="section-4">
+                            <h3><i class="bi bi-4-circle"></i> Cancellations & Refunds</h3>
+                            <p>
+                                <strong>Cancellation Policy:</strong> You may cancel your booking up to 2 hours before 
+                                the scheduled service time without penalty. Cancellations made less than 2 hours before 
+                                the service may be subject to a cancellation fee of 50% of the service price.
+                            </p>
+                            <p>
+                                <strong>Refunds:</strong> If you are not satisfied with our service, please contact us within 
+                                24 hours of service completion. We will review your concern and may offer a partial or full 
+                                refund at our discretion.
+                            </p>
+                            <p>
+                                No-shows will be charged the full service price.
+                            </p>
+                        </div>
+
+                        <!-- Section 5 -->
+                        <div class="terms-section" id="section-5">
+                            <h3><i class="bi bi-5-circle"></i> User Accounts</h3>
+                            <p>
+                                To access certain features of our Services, you may need to create an account. You are 
+                                responsible for maintaining the confidentiality of your account credentials and for all 
+                                activities that occur under your account.
+                            </p>
+                            <p>
+                                You agree to:
+                            </p>
+                            <ul>
+                                <li>Provide accurate and complete registration information</li>
+                                <li>Keep your account information updated</li>
+                                <li>Notify us immediately of any unauthorized use of your account</li>
+                                <li>Not share your account credentials with others</li>
+                            </ul>
+                            <p>
+                                We reserve the right to suspend or terminate accounts that violate these Terms or 
+                                engage in fraudulent or abusive behavior.
+                            </p>
+                        </div>
+
+                        <!-- Section 6 -->
+                        <div class="terms-section" id="section-6">
+                            <h3><i class="bi bi-6-circle"></i> Privacy</h3>
+                            <p>
+                                Your privacy is important to us. Our <a href="privacy.html" style="color:#38bdf8; text-decoration:none;">Privacy Policy</a> 
+                                explains how we collect, use, and protect your personal information. By using our Services, 
+                                you consent to our collection and use of your data as described in our Privacy Policy.
+                            </p>
+                            <p>
+                                We do not sell or rent your personal information to third parties. We may share your 
+                                information with trusted service providers who assist us in delivering our Services, 
+                                subject to confidentiality agreements.
+                            </p>
+                        </div>
+
+                        <!-- Section 7 -->
+                        <div class="terms-section" id="section-7">
+                            <h3><i class="bi bi-7-circle"></i> Limitation of Liability</h3>
+                            <p>
+                                To the fullest extent permitted by law, KKK Kar Wash and its affiliates, employees, 
+                                and agents shall not be liable for any indirect, incidental, special, consequential, 
+                                or punitive damages arising from:
+                            </p>
+                            <ul>
+                                <li>Your use or inability to use our Services</li>
+                                <li>Any errors or omissions in our content</li>
+                                <li>Unauthorized access to your account or data</li>
+                                <li>Any loss or damage to your vehicle or property</li>
+                            </ul>
+                            <p>
+                                Our total liability to you for any claim arising from these Terms shall not exceed 
+                                the amount you paid for the specific service that gave rise to the claim.
+                            </p>
+                            <div class="highlight-box">
+                                <p>
+                                    <i class="bi bi-exclamation-triangle" style="color:#f5a623;"></i>
+                                    We recommend that you remove all valuable items from your vehicle before service. 
+                                    We are not responsible for lost or stolen items.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Section 8 -->
+                        <div class="terms-section" id="section-8">
+                            <h3><i class="bi bi-8-circle"></i> Changes to These Terms</h3>
+                            <p>
+                                We may update these Terms from time to time to reflect changes in our practices, 
+                                legal requirements, or regulatory standards. We will notify you of material changes 
+                                by posting the new Terms on this page with an updated date.
+                            </p>
+                            <p>
+                                We encourage you to review these Terms periodically. Your continued use of our Services 
+                                after any changes constitutes your acceptance of the revised Terms.
+                            </p>
+                        </div>
+
+                        <!-- Section 9 -->
+                        <div class="terms-section" id="section-9">
+                            <h3><i class="bi bi-9-circle"></i> Contact Us</h3>
+                            <p>
+                                If you have any questions, concerns, or feedback about these Terms or our Services, 
+                                please contact us:
+                            </p>
+                            <ul>
+                                <li><strong>Email:</strong> <a href="mailto:support@kkkarwash.com" style="color:#38bdf8; text-decoration:none;">support@kkkarwash.com</a></li>
+                                <li><strong>Phone:</strong> <a href="tel:+23051234567" style="color:#38bdf8; text-decoration:none;">+230 5 123 4567</a></li>
+                                <li><strong>Address:</strong> KKK Kar Wash, Port Louis, Mauritius</li>
+                            </ul>
+                            <p>
+                                Our customer support team is available Monday to Saturday, 8:00 AM – 6:00 PM.
+                            </p>
+                        </div>
+
+                        <!-- Footer actions -->
+                        <div class="terms-footer-actions">
+                            <div>
+                                <a href="index.html" class="btn-ghost"><i class="bi bi-arrow-left me-2"></i>Back to Home</a>
+                            </div>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <a href="privacy.html" class="btn-ghost"><i class="bi bi-shield me-2"></i>Privacy Policy</a>
+                                <a href="contact.html" class="btn-primary-glow"><i class="bi bi-envelope me-2"></i>Contact Support</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- bottom hint -->
+            <div class="mt-4 stat-card p-3" style="border-radius: 20px; text-align:center; background:rgba(255,255,255,0.01);">
+                <p style="color:rgba(255,255,255,0.2); font-size:0.9rem; margin:0;">
+                    <i class="bi bi-shield-check me-2" style="color:#38bdf8;"></i>
+                    These Terms of Service are governed by the laws of Mauritius. 
+                    Last reviewed: April 14, 2026
+                </p>
+            </div>
+        </main>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-light py-4 mt-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 style="font-weight:700;font-size:1.1rem;">
+                            <i class="bi bi-droplet me-2" style="color:#38bdf8;"></i>KKK Kar Wash
+                        </h5>
+                        <p style="max-width:350px; color:rgba(255,255,255,0.3);">Premium car care, reimagined for the digital age.</p>
+                        <div class="social-icons mt-2">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-twitter"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="footer-heading" style="color:rgba(255,255,255,0.4);">Information</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="about.html"><i class="bi bi-info-circle me-2"></i>About</a>
+                                    <a href="contact.html"><i class="bi bi-envelope me-2"></i>Contact</a>
+                                    <a href="privacy.html"><i class="bi bi-shield me-2"></i>Privacy</a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="footer-links">
+                                    <a href="terms.html"><i class="bi bi-file-text me-2"></i>Terms</a>
+                                    <a href="#"><i class="bi bi-question-circle me-2"></i>FAQ</a>
+                                    <a href="#"><i class="bi bi-bug me-2"></i>Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,0.04);">
+                    <p class="mb-0" style="color:rgba(255,255,255,0.2);font-size:0.85rem;">
+                        <i class="bi bi-droplet-half me-2" style="color:rgba(56,189,248,0.3);"></i>
+                        &copy; 2026 KKK Kar Wash. All rights reserved. | Made with <i class="bi bi-heart-fill" style="color:#e74c3c;font-size:0.7rem;"></i> in Mauritius
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top" id="backToTop" title="Back to top">
+        <i class="bi bi-chevron-up"></i>
+    </a>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/common.js"></script>
+
+    <script>
+        (function() {
+            // ---------- Back to top button ----------
+            const backToTopBtn = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // ---------- Logout ----------
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (typeof logout === 'function') {
+                        logout();
+                    } else {
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('token');
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+
+            // ---------- Smooth scroll for sidebar links ----------
+            document.querySelectorAll('.terms-sidebar a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId.startsWith('#')) {
+                        const target = document.querySelector(targetId);
+                        if (target) {
+                            const navHeight = document.querySelector('#mainNav').offsetHeight;
+                            const targetPosition = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+                            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+
+            console.log('✅ Terms page loaded successfully with dark theme & particles!');
+        })();
+    </script>
+</body>
+</html>
